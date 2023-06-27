@@ -9,7 +9,7 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Test app!"),
+        title: Text("Easy Tracker"),
         centerTitle: true,
         backgroundColor: Colors.lightGreen[900],
       ),
