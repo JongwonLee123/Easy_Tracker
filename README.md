@@ -1,4 +1,4 @@
-# test_app
+# Easy Tracker
 
 A new Flutter project.
 

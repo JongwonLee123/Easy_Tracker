@@ -11,7 +11,7 @@ class Home extends StatelessWidget {
       appBar: AppBar(
         title: Text("Easy Tracker"),
         centerTitle: true,
-        backgroundColor: Colors.lightGreen[900],
+        backgroundColor: Colors.lightBlue[900],
       ),
       body: Center(
         child: TextButton(
@@ -24,7 +24,7 @@ class Home extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: null,
-        backgroundColor: Colors.lightGreen[800],
+        backgroundColor: Colors.lightBlue[800],
         child: Text("Button"),
       ),
     );
