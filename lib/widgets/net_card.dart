@@ -16,28 +16,29 @@ String getDateRange() {
   return "Net $month 1 - $month $endDay, $year";
 }
 
-String calculateNet(int income, int expense) {
-  int net;
-  if (income < expense) {
-    net = expense - income;
-  } else {
-    net = income - expense;
-  }
+String calculateNet(double income, double expense) {
+  double net = expense - income;
   return NumberFormat.currency(locale: 'en_US', symbol: '\$').format(net.abs());
 }
 
+String formatUSD(double n) {
+  return NumberFormat.currency(locale: 'en_US', symbol: '\$').format(n.abs());
+}
+
 class NetCard extends StatefulWidget {
-  const NetCard({Key? key}): super(key: key);
+  final double income;
+  final double expense;
+  const NetCard({
+    Key? key,
+    required this.income,
+    required this.expense
+  }): super(key: key);
 
   @override
   State<NetCard> createState() => _NetCardState();
 }
 
 class _NetCardState extends State<NetCard> {
-  int income = 1950;
-  int expense = 450;
-  static const timestamp = "Nice";
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -59,7 +60,7 @@ class _NetCardState extends State<NetCard> {
           )
         ],
       ),
-      child: Column(
+      child: Column( // MAIN CARD's CHILD
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -72,37 +73,97 @@ class _NetCardState extends State<NetCard> {
               style: Theme.of(context).textTheme.bodyMedium,
             ),
           ),
-          Container(
+          SizedBox(
             width: double.infinity,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                if (income > expense)
+                if (widget.income > widget.expense)
                   SvgPicture.asset(
                     'assets/svg/eva_arrow-up-fill.svg',
                     height: 30,
                     width: 30,
                   ),
-                if (income == expense)
+                if (widget.income == widget.expense)
                   const Icon(
                     Icons.remove,
                     color: Colors.black12,
                     size: 34,
                   ),
-                if (income < expense)
+                if (widget.income < widget.expense)
                   SvgPicture.asset(
                     'assets/svg/eva_arrow-down-fill.svg',
                     height: 30,
                     width: 30,
                   ),
                 Text(
-                  calculateNet(income, expense),
+                  calculateNet(widget.income, widget.expense),
                   style: Theme.of(context).textTheme.bodyLarge,
                 ),
               ]
             )
-          )
+          ),
+          const SizedBox(height: 20),
+          Container(
+            width: double.infinity,
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  "Income",
+                  style: Theme.of(context).textTheme.bodyMedium,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    SvgPicture.asset(
+                      'assets/svg/eva_arrow-up-fill.svg',
+                      height: 24,
+                      width: 24,
+                    ),
+                    Text(
+                      formatUSD(widget.income),
+                      style: Theme.of(context).textTheme.bodyMedium,
+                    )
+                  ],
+                )
+              ]
+            )
+          ),
+          const SizedBox(height: 20),
+          Container(
+            width: double.infinity,
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  "Expense",
+                  style: Theme.of(context).textTheme.bodyMedium,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    SvgPicture.asset(
+                      'assets/svg/eva_arrow-down-fill.svg',
+                      height: 24,
+                      width: 24,
+                    ),
+                    Text(
+                      formatUSD(widget.expense),
+                      style: Theme.of(context).textTheme.bodyMedium,
+                    )
+                  ],
+                )
+              ]
+            )
+          ),
         ],
       ),
     );

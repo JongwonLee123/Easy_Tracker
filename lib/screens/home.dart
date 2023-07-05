@@ -16,11 +16,14 @@ class _HomePageState extends State<HomePage> {
         width: double.infinity,
         height: double.infinity,
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-        child: Column(
+        child: const Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            NetCard(),
+            NetCard(
+              income: 2440,
+              expense: 385,
+            ),
           ],
         )
       )
