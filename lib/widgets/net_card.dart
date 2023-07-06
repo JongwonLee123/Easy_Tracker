@@ -1,3 +1,4 @@
+import "package:easy_tracker/utils/themes.dart";
 import "package:flutter/material.dart";
 import "package:intl/intl.dart";
 import "package:flutter_svg/flutter_svg.dart";
@@ -45,11 +46,7 @@ class _NetCardState extends State<NetCard> {
       width: double.infinity,
       padding: const EdgeInsets.all(10),
       decoration: ShapeDecoration(
-        gradient: const LinearGradient(
-          begin: Alignment(0.71, -0.71),
-          end: Alignment(-0.71, 0.71),
-          colors: [Color(0xFFB2D3C2), Color(0xFFEBEBEB)],
-        ),
+        gradient: mainGradient,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
         shadows: const [
           BoxShadow(
@@ -70,7 +67,7 @@ class _NetCardState extends State<NetCard> {
             padding: const EdgeInsets.symmetric(horizontal: 10),
             child: Text(
               getDateRange(),
-              style: Theme.of(context).textTheme.bodyMedium,
+              style: bodyMedium,
             ),
           ),
           SizedBox(
@@ -99,7 +96,7 @@ class _NetCardState extends State<NetCard> {
                   ),
                 Text(
                   calculateNet(widget.income, widget.expense),
-                  style: Theme.of(context).textTheme.bodyLarge,
+                  style: bodyLarge,
                 ),
               ]
             )
@@ -112,9 +109,9 @@ class _NetCardState extends State<NetCard> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Text(
+                const Text(
                   "Income",
-                  style: Theme.of(context).textTheme.bodyMedium,
+                  style: bodyMedium,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -127,7 +124,7 @@ class _NetCardState extends State<NetCard> {
                     ),
                     Text(
                       formatUSD(widget.income),
-                      style: Theme.of(context).textTheme.bodyMedium,
+                      style: bodyMedium,
                     )
                   ],
                 )
@@ -142,9 +139,9 @@ class _NetCardState extends State<NetCard> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Text(
+                const Text(
                   "Expense",
-                  style: Theme.of(context).textTheme.bodyMedium,
+                  style: bodyMedium,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -157,7 +154,7 @@ class _NetCardState extends State<NetCard> {
                     ),
                     Text(
                       formatUSD(widget.expense),
-                      style: Theme.of(context).textTheme.bodyMedium,
+                      style: bodyMedium,
                     )
                   ],
                 )

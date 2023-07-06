@@ -1,3 +1,4 @@
+import 'package:easy_tracker/utils/themes.dart';
 import 'package:flutter/material.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -14,6 +15,7 @@ class _ProfilePageState extends State<ProfilePage> {
       body: Center(
         child: Text(
           "Profile Page",
+          style: bodyLarge,
         )
       )
     );

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:easy_tracker/utils/themes.dart';
 
 // Card on the welcome screen.
 // says "Welcome! to personal Finance Tracker"
@@ -13,11 +14,7 @@ class WelcomeCard extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 40),
       clipBehavior: Clip.antiAlias,
       decoration: ShapeDecoration(
-        gradient: const LinearGradient(
-          begin: Alignment(0.71, -0.71),
-          end: Alignment(-0.71, 0.71),
-          colors: [Color(0xFFB2D3C2), Color(0xFFEBEBEB)],
-        ),
+        gradient: mainGradient,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
         shadows: const [
           BoxShadow(
@@ -28,26 +25,18 @@ class WelcomeCard extends StatelessWidget {
           )
         ],
       ),
-      child: Column(
+      child: const Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Container(
-            clipBehavior: Clip.antiAlias,
-            decoration: const BoxDecoration(),
-            child: Text(
-              'Welcome!',
-              style: Theme.of(context).textTheme.bodyLarge,
-            ),
+          Text(
+            'Welcome!',
+            style: bodyLarge,
           ),
-          const SizedBox(height: 20),
-          Container(
-            clipBehavior: Clip.antiAlias,
-            decoration: BoxDecoration(),
-            child: Text(
-              'to personal finance tracker',
-              style: Theme.of(context).textTheme.bodySmall,
-            ),
+          SizedBox(height: 20),
+          Text(
+            'to personal finance tracker',
+            style: bodySmall,
           ),
         ],
       ),

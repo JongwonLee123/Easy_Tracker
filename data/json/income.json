@@ -1,0 +1,13 @@
+[
+  {
+    "name": "Salary",
+    "amount": 4850.0,
+    "timestamp": 1686415200000,
+    "description": "ABCD Payroll"
+  },{
+    "name": "Rental",
+    "amount": 752.0,
+    "timestamp": 1685748600000,
+    "description": "Rental Income"
+  }
+]

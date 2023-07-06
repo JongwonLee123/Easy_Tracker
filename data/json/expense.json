@@ -1,0 +1,23 @@
+[
+  {
+    "name": "Food",
+    "amount": 26.55,
+    "timestamp": 1687221840000,
+    "description": "Dinner"
+  },{
+    "name": "Shopping",
+    "amount": 242.18,
+    "timestamp": 1687215720000,
+    "description": "Expensive Something"
+  },{
+    "name": "Entertainment",
+    "amount": 59.99,
+    "timestamp": 1687152540000,
+    "description": "in-app Purchase"
+  },{
+    "name": "Grocery",
+    "amount": 120.75,
+    "timestamp": 1686962400000,
+    "description": "I need to EAT to survive long text long text long text long text!"
+  }
+]
