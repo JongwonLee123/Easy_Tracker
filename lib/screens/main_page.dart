@@ -1,5 +1,7 @@
 import 'package:easy_tracker/screens/home.dart';
 import 'package:easy_tracker/screens/profile.dart';
+import 'package:easy_tracker/utils/entry_manager.dart';
+import 'package:easy_tracker/utils/themes.dart';
 import 'package:flutter/material.dart';
 
 // this main_page.dart handles the main navigation
@@ -21,11 +23,15 @@ class _MainPageState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: fgWhite,
+      ),
       bottomNavigationBar: NavigationBar(
         height: 60,
         selectedIndex: currentIndex,
-        backgroundColor: Colors.white70,
+        backgroundColor: fgWhite,
         labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
         onDestinationSelected: (int index) {
           setState(() {

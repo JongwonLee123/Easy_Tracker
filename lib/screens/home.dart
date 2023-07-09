@@ -1,85 +1,81 @@
-import 'dart:math';
-
+import 'package:easy_tracker/utils/entry_manager.dart';
 import 'package:easy_tracker/widgets/entry_card.dart';
-import 'package:flutter/services.dart' show rootBundle;
-import 'dart:convert';
-import 'package:easy_tracker/utils/entry_data.dart';
 import 'package:easy_tracker/utils/themes.dart';
 import 'package:flutter/material.dart';
 import 'package:easy_tracker/widgets/net_card.dart';
+import 'package:easy_tracker/screens/display_all/income_page.dart';
+import 'package:easy_tracker/screens/display_all/expense_page.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+
+  const HomePage ({Key? key}) : super(key: key);
 
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
-  Future<List<List<EntryData>>> readJsonData() async {
-    final incJson = await rootBundle.loadString('data/json/income.json');
-    final expJson = await rootBundle.loadString('data/json/expense.json');
-    final incList = json.decode(incJson) as List<dynamic>;
-    final expList = json.decode(expJson) as List<dynamic>;
-    List<List<EntryData>> data = [];
-    data.add(incList.map((e) => EntryData.fromJson(e)).toList());
-    data.add(expList.map((e) => EntryData.fromJson(e)).toList());
-    return data;
+  Future<EntryManager> readData() async {
+    return EntryManager();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: btnWhite,
+        child: const Icon(Icons.add, color: Colors.black,),
+        onPressed: () {},
+      ),
       body: FutureBuilder(
-        future: readJsonData(),
+        future: readData(),
         builder: (context, data) {
           if (data.hasError) {
-            return Center(child: Text("Error: ${data.error}"));
+            return Center(child: Text("Error ${data.error}"));
           } else if (data.hasData) {
-
-            var entryList = data.data as List<List<EntryData>>;
-            var incEntryList = entryList[0];
-            var expEntryList = entryList[1];
+            EntryManager dataALL = data.data as EntryManager;
+            dataALL.calcIncThisMonth();
+            dataALL.calcExpThisMonth();
             List<Widget> incWdgList = [];
             List<Widget> expWdgList = [];
-            double inc = 0;
-            double exp = 0;
-            const int displayLimit = 4;
+            const int displayLimit = 2;
             int c = 0;
-            for (var entry in incEntryList) {
-              inc += entry.amount;
-              if (c++ < displayLimit) {
-                incWdgList.add(const SizedBox(height: 10));
-                incWdgList.add(
-                  EntryCard(
-                    name: entry.name!,
-                    amount: entry.amount,
-                    timestamp: entry.timestamp,
-                    description: entry.description!
-                  )
-                );
+            for (var entry in dataALL.incList) {
+              if (c++ >= displayLimit) {
+                break;
               }
+              incWdgList.add(const SizedBox(height: 10));
+              incWdgList.add(
+                EntryCard(
+                  id: c - 1,
+                  name: entry.name!,
+                  amount: entry.amount,
+                  timestamp: entry.timestamp,
+                  description: entry.description!
+                )
+              );
             }
             c = 0;
-            for (var entry in expEntryList) {
-              exp += entry.amount;
-              if (c++ < displayLimit) {
-                expWdgList.add(const SizedBox(height: 10));
-                expWdgList.add(
-                  EntryCard(
-                    name: entry.name!,
-                    amount: -(entry.amount),
-                    timestamp: entry.timestamp,
-                    description: entry.description!
-                  )
-                );
+            for (var entry in dataALL.expList) {
+              if (c++ >= displayLimit) {
+                break;
               }
+              expWdgList.add(const SizedBox(height: 10));
+              expWdgList.add(
+                EntryCard(
+                  id: c - 1,
+                  name: entry.name!,
+                  amount: -(entry.amount),
+                  timestamp: entry.timestamp,
+                  description: entry.description!
+                )
+              );
             }
 
             return Container(
               width: double.infinity,
               height: double.infinity,
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
               child: SingleChildScrollView(
                 clipBehavior: Clip.none,
                 child: Column(
@@ -87,25 +83,35 @@ class _HomePageState extends State<HomePage> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     NetCard(
-                      income: inc,
-                      expense: exp,
+                      income: dataALL.incThisMonth,
+                      expense: dataALL.expThisMonth,
                     ),
                     const SizedBox(height: 20),
                     Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        const Row( // display all text row
+                        Row( // display all text row
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            Text(
+                            const Text(
                               "Income",
                               style: bodyMedium,
                             ),
-                            Text(
-                              "display all",
-                              style: bodySmall,
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) {
+                                    return IncomePage(data: dataALL);
+                                  })
+                                );
+                              },
+                              child: const Text(
+                                "display all",
+                                style: bodySmall,
+                              )
                             )
                           ],
                         ),
@@ -119,17 +125,27 @@ class _HomePageState extends State<HomePage> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        const Row( // display all text row
+                        Row( // display all text row
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            Text(
-                              "Expense",
+                            const Text(
+                              "Expenses",
                               style: bodyMedium,
                             ),
-                            Text(
-                              "display all",
-                              style: bodySmall,
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) {
+                                    return ExpensePage(data: dataALL);
+                                  })
+                                );
+                              },
+                              child: const Text(
+                                "display all",
+                                style: bodySmall,
+                              )
                             )
                           ],
                         ),
@@ -145,8 +161,8 @@ class _HomePageState extends State<HomePage> {
           } else {
             return const Center(child: CircularProgressIndicator());
           }
-        },
-      ),
+        }
+      )
     );
   }
 }

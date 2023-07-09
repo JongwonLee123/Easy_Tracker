@@ -13,6 +13,7 @@ String formatUSD(double n) {
 }
 
 class EntryCard extends StatefulWidget {
+  final int id;
   final String? name;
   final double amount;
   final int timestamp;
@@ -20,6 +21,7 @@ class EntryCard extends StatefulWidget {
 
   const EntryCard({
     Key? key,
+    required this.id,
     required this.name,
     required this.amount,
     required this.timestamp,
@@ -37,7 +39,7 @@ class _EntryCardState extends State<EntryCard> {
       width: double.infinity,
       padding: const EdgeInsets.all(10),
       decoration: ShapeDecoration(
-        color: Colors.white.withOpacity(0.6),
+        color: fgWhite,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
         shadows: const [
           BoxShadow(
@@ -48,66 +50,68 @@ class _EntryCardState extends State<EntryCard> {
           )
         ],
       ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.start,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Container(
-            width: MediaQuery.of(context).size.width*0.5,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(
+                width: MediaQuery.of(context).size.width - 230,
+                child: Text(
                   widget.name!,
                   style: bodyMedium,
                   overflow: TextOverflow.ellipsis,
                   maxLines: 1,
                   softWrap: false,
                 ),
-                Text(
+              ),
+              Text(
+                timestampToDate(widget.timestamp),
+                style: bodySmall,
+              )
+            ]
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(
+                width: MediaQuery.of(context).size.width - 180,
+                child: Text(
                   widget.description!,
                   style: bodySmall,
                   overflow: TextOverflow.ellipsis,
                   maxLines: 2,
-                )
-              ]
-            ),
-          ),
-          Container(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                Text(
-                  timestampToDate(widget.timestamp),
-                  style: bodySmall,
                 ),
-                Container(
-                  height: 40,
-                  alignment: Alignment.center,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      if (widget.amount > 0)
-                        SvgPicture.asset(
-                          'assets/svg/eva_arrow-up-fill.svg',
-                          height: 24,
-                          width: 24,
-                        ),
-                      if (widget.amount < 0)
-                        SvgPicture.asset(
-                          'assets/svg/eva_arrow-down-fill.svg',
-                          height: 24,
-                          width: 24,
-                        ),
-                      Text(
-                        formatUSD(widget.amount),
-                        style: bodyMedium,
-                      )
-                    ]
-                  )
+              ),
+              Container(
+                height: 40,
+                alignment: Alignment.centerRight,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    if (widget.amount > 0)
+                      SvgPicture.asset(
+                        'assets/svg/eva_arrow-up-fill.svg',
+                        height: 24,
+                        width: 24,
+                      ),
+                    if (widget.amount < 0)
+                      SvgPicture.asset(
+                        'assets/svg/eva_arrow-down-fill.svg',
+                        height: 24,
+                        width: 24,
+                      ),
+                    Text(
+                      formatUSD(widget.amount),
+                      style: bodyMedium,
+                    )
+                  ]
                 )
-              ]
-            ),
+              )
+            ]
           )
         ],
       ),

@@ -25,13 +25,28 @@ class WelcomePage extends StatelessWidget {
               onPressed: () {
                 Navigator.pushReplacement(
                     context,
-                    MaterialPageRoute(builder: (context) => const MainPage())
+                    PageRouteBuilder(
+                      pageBuilder: (context, ani, ani2) => const MainPage(),
+                      transitionsBuilder: (context, ani, ani2, child) {
+                        const begin = Offset(1.0, 0.0);
+                        const end = Offset.zero;
+                        const curve = Curves.easeInOut;
+
+                        var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+
+                        return SlideTransition(
+                          position: ani.drive(tween),
+                          child: child,
+                        );
+                      },
+                    )
+                    //MaterialPageRoute(builder: (context) => const MainPage())
                 );
               },
               style: ElevatedButton.styleFrom(
                   elevation: 2,
                   minimumSize: const Size(200, 50),
-                  backgroundColor: Colors.white.withOpacity(0.8),
+                  backgroundColor: btnWhite,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(25),
                   )

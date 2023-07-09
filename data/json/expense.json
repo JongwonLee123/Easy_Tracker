@@ -1,6 +1,16 @@
 [
   {
     "name": "Food",
+    "amount": 35.82,
+    "timestamp": 1688666800000,
+    "description": "Lunch"
+  },{
+    "name": "Transportation",
+    "amount": 15.67,
+    "timestamp": 1688326800000,
+    "description": "Bus Fare"
+  },{
+    "name": "Food",
     "amount": 26.55,
     "timestamp": 1687221840000,
     "description": "Dinner"
