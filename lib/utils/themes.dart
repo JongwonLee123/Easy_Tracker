@@ -10,6 +10,44 @@ const fgWhite = Colors.white70;
 // for buttons and interactive objects
 final btnWhite = Colors.white.withOpacity(0.9);
 
+final mainBtnTheme = ElevatedButton.styleFrom(
+  elevation: 2,
+  minimumSize: const Size(200, 50),
+  backgroundColor: btnWhite,
+  shape: RoundedRectangleBorder(
+    borderRadius: BorderRadius.circular(25),
+  )
+);
+
+final btnWhiteTheme = ElevatedButton.styleFrom(
+  elevation: 2,
+  backgroundColor: btnWhite,
+  shape: RoundedRectangleBorder(
+    borderRadius: BorderRadius.circular(5),
+  )
+);
+final btnGreenTheme = ElevatedButton.styleFrom(
+  elevation: 2,
+  backgroundColor: const Color(0xFF77CD70),
+  shape: RoundedRectangleBorder(
+    borderRadius: BorderRadius.circular(5),
+  )
+);
+final btnRedTheme = ElevatedButton.styleFrom(
+  elevation: 2,
+  backgroundColor: const Color(0xFFDD8080),
+  shape: RoundedRectangleBorder(
+    borderRadius: BorderRadius.circular(5),
+  )
+);
+
+const generalShadow = BoxShadow(
+  color: Color(0x3F000000),
+  blurRadius: 4,
+  offset: Offset(0, 0),
+  spreadRadius: 0,
+);
+
 const mainGradient = LinearGradient(
   begin: Alignment(0.71, -0.71),
   end: Alignment(-0.71, 0.71),

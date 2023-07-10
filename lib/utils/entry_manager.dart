@@ -8,9 +8,7 @@ class EntryManager{
   double incThisMonth = 0;
   double expThisMonth = 0;
 
-  EntryManager() {
-    loadJson();
-  }
+  EntryManager();
 
   void loadJson() async {
     final incJson = await rootBundle.loadString('data/json/income.json');

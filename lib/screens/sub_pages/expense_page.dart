@@ -40,7 +40,10 @@ class _ExpensePageState extends State<ExpensePage> {
           style: bodyMedium,
         ),
         backgroundColor: fgWhite,
-        leading: const BackButton(
+        leading: BackButton(
+          onPressed: () {
+            Navigator.pop(context, true);
+          },
           color: Colors.black,
         ),
       ),

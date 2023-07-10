@@ -43,14 +43,7 @@ class WelcomePage extends StatelessWidget {
                     //MaterialPageRoute(builder: (context) => const MainPage())
                 );
               },
-              style: ElevatedButton.styleFrom(
-                  elevation: 2,
-                  minimumSize: const Size(200, 50),
-                  backgroundColor: btnWhite,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(25),
-                  )
-              ),
+              style: mainBtnTheme,
               child: const Text(
                 'Start',
                 textAlign: TextAlign.center,

@@ -40,7 +40,10 @@ class _IncomePageState extends State<IncomePage> {
           style: bodyMedium,
         ),
         backgroundColor: fgWhite,
-        leading: const BackButton(
+        leading: BackButton(
+          onPressed: () {
+            Navigator.pop(context, true);
+          },
           color: Colors.black,
         ),
       ),

@@ -41,14 +41,7 @@ class _EntryCardState extends State<EntryCard> {
       decoration: ShapeDecoration(
         color: fgWhite,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-        shadows: const [
-          BoxShadow(
-            color: Color(0x3F000000),
-            blurRadius: 4,
-            offset: Offset(0, 0),
-            spreadRadius: 0,
-          )
-        ],
+        shadows: const [generalShadow],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
