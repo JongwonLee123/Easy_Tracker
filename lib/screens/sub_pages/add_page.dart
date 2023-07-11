@@ -42,7 +42,18 @@ class _AddPageState extends State<AddPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return WillPopScope(
+      onWillPop: () async {
+        EntryData nullData = EntryData(
+          amount: 0,
+          timestamp: 0,
+        );
+        Navigator.pop(context, nullData);
+        // For some reason, this needs to return false
+        // to "LOCK" the default back button behavior
+        return false;
+      },
+      child: Scaffold(
       appBar: AppBar(
         title: const Text(
           "Add new Entry",
@@ -329,13 +340,13 @@ class _AddPageState extends State<AddPage> {
                                 pickedTime.hour,
                                 pickedTime.minute
                             );
-                            EntryData test = EntryData(
+                            EntryData returnData = EntryData(
                               name: nameController.text,
                               amount: inc? d: -d,
                               timestamp: t.millisecondsSinceEpoch,
                               description: descController.text
                             );
-                            Navigator.pop(context, test);
+                            Navigator.pop(context, returnData);
                           }
                         },
                         style: btnWhiteTheme,
@@ -352,6 +363,7 @@ class _AddPageState extends State<AddPage> {
           ),
         )
       )
+    ),
     );
   }
 }

@@ -67,11 +67,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     Future<EntryData> addData(BuildContext context) async {
-      return await Navigator.of(context).push(
-        MaterialPageRoute(builder: (context) {
-          return const AddPage();
-        })
-      );
+      return await Navigator.of(context).pushNamed("/AddEntry") as EntryData;
     }
 
     return FutureBuilder(
@@ -95,19 +91,13 @@ class _HomePageState extends State<HomePage> {
                 color: Colors.black
               ),
               onPressed: () async {
-                final EntryData result = await addData(context);
-                if (result.name != null) {
-                  EntryData newData = EntryData(
-                    name: result.name,
-                    amount: result.amount,
-                    timestamp: result.timestamp,
-                    description: result.description
-                  );
-                  if (result.amount.isNegative) {
-                    newData.amount = -(newData.amount);
-                    dataManager.addExp(newData);
+                final EntryData returnData = await addData(context);
+                if (returnData.name != null) {
+                  if (returnData.amount.isNegative) {
+                    returnData.amount = -(returnData.amount);
+                    dataManager.addExp(returnData);
                   } else {
-                    dataManager.addInc(newData);
+                    dataManager.addInc(returnData);
                   }
                   await dataManager.writeJson();
                 }
@@ -144,20 +134,22 @@ class _HomePageState extends State<HomePage> {
                               "Income",
                               style: bodyMedium,
                             ),
-                            GestureDetector(
-                              onTap: () {
-                                Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                    builder: (context) {
-                                      return IncomePage(data: dataManager);
-                                    }
-                                  )
-                                );
-                              },
-                              child: const Text(
-                                "display all",
-                                style: bodySmall,
-                              )
+                            SizedBox(
+                              height: 30,
+                              child: TextButton(
+                                style: txtBtnTheme,
+                                onPressed: () {
+                                  Navigator.pushNamed(
+                                    context,
+                                    "/Income",
+                                    arguments: dataManager,
+                                  );
+                                },
+                                child: const Text(
+                                  "display all",
+                                  style: bodySmall,
+                                ),
+                              ),
                             )
                           ],
                         ),
@@ -179,20 +171,22 @@ class _HomePageState extends State<HomePage> {
                               "Expenses",
                               style: bodyMedium,
                             ),
-                            GestureDetector(
-                              onTap: () {
-                                Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                    builder: (context) {
-                                      return ExpensePage(data: dataManager);
-                                    }
-                                  )
-                                );
-                              },
-                              child: const Text(
-                                "display all",
-                                style: bodySmall,
-                              )
+                            SizedBox(
+                              height: 30,
+                              child: TextButton(
+                                style: txtBtnTheme,
+                                onPressed: () {
+                                  Navigator.pushNamed(
+                                    context,
+                                    "/Expense",
+                                    arguments: dataManager,
+                                  );
+                                },
+                                child: const Text(
+                                  "display all",
+                                  style: bodySmall,
+                                ),
+                              ),
                             )
                           ],
                         ),

@@ -23,9 +23,10 @@ class WelcomePage extends StatelessWidget {
             const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
-                Navigator.pushReplacement(
+                Navigator.pushReplacementNamed(
                     context,
-                    PageRouteBuilder(
+                    "/Main"
+                    /*PageRouteBuilder(
                       pageBuilder: (context, ani, ani2) => const MainPage(),
                       transitionsBuilder: (context, ani, ani2, child) {
                         const begin = Offset(1.0, 0.0);
@@ -39,7 +40,7 @@ class WelcomePage extends StatelessWidget {
                           child: child,
                         );
                       },
-                    )
+                    )*/
                     //MaterialPageRoute(builder: (context) => const MainPage())
                 );
               },

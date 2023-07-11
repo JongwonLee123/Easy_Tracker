@@ -40,6 +40,9 @@ final btnRedTheme = ElevatedButton.styleFrom(
     borderRadius: BorderRadius.circular(5),
   )
 );
+final txtBtnTheme = TextButton.styleFrom(
+  padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+);
 
 const generalShadow = BoxShadow(
   color: Color(0x3F000000),

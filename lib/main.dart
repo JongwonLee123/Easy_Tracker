@@ -1,6 +1,13 @@
+import 'package:easy_tracker/screens/home.dart';
+import 'package:easy_tracker/screens/main_page.dart';
+import 'package:easy_tracker/screens/profile.dart';
+import 'package:easy_tracker/screens/sub_pages/add_page.dart';
+import 'package:easy_tracker/screens/sub_pages/expense_page.dart';
+import 'package:easy_tracker/screens/sub_pages/income_page.dart';
 import 'package:flutter/material.dart';
 import 'package:easy_tracker/welcome.dart';
 import 'package:easy_tracker/utils/themes.dart';
+import 'package:easy_tracker/utils/entry_manager.dart';
 
 // The main dart file where the app starts.
 // routes to the WelcomePage() from welcome.dart
@@ -15,10 +22,25 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      initialRoute: "/",
+      routes: {
+        "/": (context) => const WelcomePage(),
+        "/Main": (context) => const MainPage(),
+        "/Home": (context) => const HomePage(),
+        "/Profile": (context) => const ProfilePage(),
+        "/AddEntry": (context) => const AddPage(),
+        "/Expense": (context) {
+          final EntryManager d = ModalRoute.of(context)?.settings.arguments as EntryManager;
+          return ExpensePage(data: d);
+        },
+        "/Income": (context) {
+          final EntryManager d = ModalRoute.of(context)?.settings.arguments as EntryManager;
+          return IncomePage(data: d);
+        },
+      },
       theme: ThemeData(
         scaffoldBackgroundColor: bgColor,
       ),
-      home: const WelcomePage(),
     );
   }
 }
