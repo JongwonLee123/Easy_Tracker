@@ -67,7 +67,6 @@ class EntryManager{
   }
 
   Future<void> writeJson() async {
-    sortEntriesByTimestamp();
     final incFile = await _localIncFile;
     final expFile = await _localExpFile;
     final incData = incList.map((e) => e.toJson()).toList();
@@ -78,17 +77,35 @@ class EntryManager{
     await expFile.writeAsString(expJson);
   }
 
-  void sortEntriesByTimestamp() {
+  void sortIncEntries() {
     incList.sort((a, b) => b.timestamp.compareTo(a.timestamp));
+  }
+  void sortExpEntries() {
     expList.sort((a, b) => b.timestamp.compareTo(a.timestamp));
   }
 
-  void addInc(EntryData newData) {
+  Future<void> addInc(EntryData newData) async {
     incList.add(newData);
+    sortIncEntries();
+    await writeJson();
   }
 
-  void addExp(EntryData newData) {
+  Future<void> addExp(EntryData newData) async {
     expList.add(newData);
+    sortExpEntries();
+    await writeJson();
+  }
+
+  Future<void> rmvInc(int id) async {
+    incList.removeAt(id);
+    sortIncEntries();
+    await writeJson();
+  }
+
+  Future<void> rmvExp(int id) async {
+    expList.removeAt(id);
+    sortExpEntries();
+    await writeJson();
   }
 
   double calcIncThisMonth() {

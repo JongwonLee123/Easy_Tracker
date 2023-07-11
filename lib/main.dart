@@ -31,11 +31,11 @@ class MainApp extends StatelessWidget {
         "/AddEntry": (context) => const AddPage(),
         "/Expense": (context) {
           final EntryManager d = ModalRoute.of(context)?.settings.arguments as EntryManager;
-          return ExpensePage(data: d);
+          return ExpensePage(entryManager: d);
         },
         "/Income": (context) {
           final EntryManager d = ModalRoute.of(context)?.settings.arguments as EntryManager;
-          return IncomePage(data: d);
+          return IncomePage(entryManager: d);
         },
       },
       theme: ThemeData(

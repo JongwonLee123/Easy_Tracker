@@ -45,6 +45,7 @@ class _AddPageState extends State<AddPage> {
     return WillPopScope(
       onWillPop: () async {
         EntryData nullData = EntryData(
+          id: -1,
           amount: 0,
           timestamp: 0,
         );
@@ -63,6 +64,7 @@ class _AddPageState extends State<AddPage> {
         leading: BackButton(
           onPressed: () {
             EntryData nullData = EntryData(
+              id: -1,
               amount: 0,
               timestamp: 0,
             );
@@ -283,7 +285,7 @@ class _AddPageState extends State<AddPage> {
                           } on FormatException {
                             d = -1.0;
                           }
-                          if ( n.isEmpty || a.isEmpty || d < 0.0) {
+                          if (n.isEmpty || a.isEmpty || d < 0.0) {
                             showDialog(
                               context: context,
                               builder: (BuildContext context) => Dialog(
@@ -341,6 +343,7 @@ class _AddPageState extends State<AddPage> {
                                 pickedTime.minute
                             );
                             EntryData returnData = EntryData(
+                              id: -1,
                               name: nameController.text,
                               amount: inc? d: -d,
                               timestamp: t.millisecondsSinceEpoch,

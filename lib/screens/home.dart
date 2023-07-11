@@ -25,7 +25,6 @@ class _HomePageState extends State<HomePage> {
     expWdgList = [];
     EntryManager d = await EntryManager.create();
     const int displayLimit = 2;
-    int c = 0;
     if (d.incList.isEmpty) {
       incWdgList.add(const SizedBox(height: 10));
       incWdgList.add(const Text("No Data", style: bodySmall));
@@ -34,6 +33,7 @@ class _HomePageState extends State<HomePage> {
       expWdgList.add(const SizedBox(height: 10));
       expWdgList.add(const Text("No Data", style: bodySmall));
     }
+    int c = 0;
     for (var entry in d.incList) {
       if (c++ >= displayLimit) {break;}
       incWdgList.add(const SizedBox(height: 10));
@@ -95,16 +95,13 @@ class _HomePageState extends State<HomePage> {
                 if (returnData.name != null) {
                   if (returnData.amount.isNegative) {
                     returnData.amount = -(returnData.amount);
-                    dataManager.addExp(returnData);
+                    await dataManager.addExp(returnData);
                   } else {
-                    dataManager.addInc(returnData);
+                    await dataManager.addInc(returnData);
                   }
-                  await dataManager.writeJson();
+                  await dataManager.loadJson();
                 }
-                dataManager.loadJson();
-                // Refresh
-                setState(() {});
-                // add new STUFF HERE!
+                setState(() {}); // REFRESHER
               },
             ),
             body: Container(
@@ -119,7 +116,7 @@ class _HomePageState extends State<HomePage> {
                   children: [
                     NetCard(
                       income: dataManager.calcIncThisMonth(),
-                      expense: dataManager.calcExpThisMonth(),
+                      expense: -(dataManager.calcExpThisMonth()),
                     ),
                     const SizedBox(height: 20),
                     Column(
@@ -138,12 +135,12 @@ class _HomePageState extends State<HomePage> {
                               height: 30,
                               child: TextButton(
                                 style: txtBtnTheme,
-                                onPressed: () {
-                                  Navigator.pushNamed(
-                                    context,
+                                onPressed: () async {
+                                  await Navigator.of(context).pushNamed(
                                     "/Income",
                                     arguments: dataManager,
                                   );
+                                  setState(() {}); // REFRESHER
                                 },
                                 child: const Text(
                                   "display all",
@@ -175,12 +172,12 @@ class _HomePageState extends State<HomePage> {
                               height: 30,
                               child: TextButton(
                                 style: txtBtnTheme,
-                                onPressed: () {
-                                  Navigator.pushNamed(
-                                    context,
+                                onPressed: () async {
+                                  await Navigator.of(context).pushNamed(
                                     "/Expense",
                                     arguments: dataManager,
                                   );
+                                  setState(() {}); // REFRESHER
                                 },
                                 child: const Text(
                                   "display all",

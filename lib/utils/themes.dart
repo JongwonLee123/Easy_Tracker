@@ -75,3 +75,9 @@ const bodySmall = TextStyle(
   fontFamily: 'Quicksand',
   fontWeight: FontWeight.w500,
 );
+const bodySmallRed = TextStyle(
+  color: Color(0xFFDD3030),
+  fontSize: 16,
+  fontFamily: 'Quicksand',
+  fontWeight: FontWeight.w500,
+);
