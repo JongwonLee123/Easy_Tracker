@@ -88,13 +88,14 @@ class _AddPageState extends State<AddPage> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        // INCOME EXPENSE RADIO INPUT FIELD
                         LayoutBuilder(
                           builder: (BuildContext context, BoxConstraints constraints) {
                             final parentWidth = constraints.maxWidth;
                             return Row(
                                 children: [
                                   SizedBox(
-                                    width: parentWidth * 0.49,
+                                    width: parentWidth * 0.5 - 4,
                                     height: 50,
                                     child: ElevatedButton(
                                       onPressed: () {
@@ -109,9 +110,9 @@ class _AddPageState extends State<AddPage> {
                                       ),
                                     ),
                                   ),
-                                  SizedBox(width: parentWidth * 0.02,),
+                                  const SizedBox(width: 8),
                                   SizedBox(
-                                    width: parentWidth * 0.49,
+                                    width: parentWidth * 0.5 - 4,
                                     height: 50,
                                     child: ElevatedButton(
                                       onPressed: () {
@@ -130,10 +131,13 @@ class _AddPageState extends State<AddPage> {
                             );
                           },
                         ),
-                        // NAME INPUT BOX
-                        const SizedBox(height: 6),
+                        // NAME INPUT FIELD
+                        const SizedBox(height: 10),
                         const Padding(
-                          padding: EdgeInsets.symmetric(vertical: 10),
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 10,
+                            vertical: 2
+                          ),
                           child: Text("Name", style: bodyMedium),
                         ),
                         SizedBox(
@@ -145,10 +149,13 @@ class _AddPageState extends State<AddPage> {
                             ),
                           )
                         ),
-                        // AMOUNT INPUT BOX
-                        const SizedBox(height: 6),
+                        // AMOUNT INPUT FIELD
+                        const SizedBox(height: 10),
                         const Padding(
-                          padding: EdgeInsets.symmetric(vertical: 10),
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 10,
+                            vertical: 2
+                          ),
                           child: Text("Amount", style: bodyMedium),
                         ),
                         SizedBox(
@@ -161,10 +168,13 @@ class _AddPageState extends State<AddPage> {
                             ),
                           )
                         ),
-                        // DATE TIME INPUT BOX
-                        const SizedBox(height: 6),
+                        // DATE TIME INPUT FIELD
+                        const SizedBox(height: 10),
                         const Padding(
-                          padding: EdgeInsets.symmetric(vertical: 10),
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 10,
+                            vertical: 2
+                          ),
                           child: Text("Date and Time", style: bodyMedium),
                         ),
                         LayoutBuilder(
@@ -172,9 +182,9 @@ class _AddPageState extends State<AddPage> {
                             final parentWidth = constraints.maxWidth;
                             return Row(
                               children: [
-                                // DATE
+                                // DATE LEFT BOX
                                 SizedBox(
-                                  width: parentWidth * 0.49,
+                                  width: parentWidth * 0.5 - 4,
                                   height: 50,
                                   child: ElevatedButton(
                                     onPressed: () async {
@@ -192,10 +202,10 @@ class _AddPageState extends State<AddPage> {
                                     ),
                                   )
                                 ),
-                                SizedBox(width: parentWidth * 0.02,),
-                                // TIME
+                                const SizedBox(width: 8),
+                                // TIME RIGHT BOX
                                 SizedBox(
-                                  width: parentWidth * 0.49,
+                                  width: parentWidth * 0.5 - 4,
                                   height: 50,
                                   child: ElevatedButton(
                                     onPressed: () async {
@@ -208,7 +218,7 @@ class _AddPageState extends State<AddPage> {
                                     },
                                     style: btnWhiteTheme,
                                     child: Text(
-                                      DateFormat("hh:mma").format(
+                                      DateFormat("h : mm a").format(
                                         DateTime(
                                           pickedDate.year,
                                           pickedDate.month,
@@ -225,10 +235,13 @@ class _AddPageState extends State<AddPage> {
                             );
                           },
                         ),
-                        // DESCRIPTION INPUT BOX
-                        const SizedBox(height: 6),
+                        // DESCRIPTION INPUT FIELD
+                        const SizedBox(height: 10),
                         const Padding(
-                          padding: EdgeInsets.symmetric(vertical: 10),
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 10,
+                            vertical: 2
+                          ),
                           child: Text("Note (optional)", style: bodyMedium),
                         ),
                         SizedBox(
@@ -263,20 +276,17 @@ class _AddPageState extends State<AddPage> {
                             showDialog(
                               context: context,
                               builder: (BuildContext context) => Dialog(
+                                backgroundColor: Colors.white,
+                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                                elevation: 10,
                                 child: Container(
-                                  width: double.infinity,
-                                  height: 190,
                                   padding: const EdgeInsets.symmetric(
                                     horizontal: 20,
-                                    vertical: 20
-                                  ),
-                                  decoration: ShapeDecoration(
-                                    color: fgWhite,
-                                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                                    shadows: const [generalShadow],
+                                    vertical: 10
                                   ),
                                   child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    mainAxisSize: MainAxisSize.min,
+                                    mainAxisAlignment: MainAxisAlignment.center,
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       if (n.isEmpty)
