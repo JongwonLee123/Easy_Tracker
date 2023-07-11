@@ -98,13 +98,11 @@ class EntryManager{
 
   Future<void> rmvInc(int id) async {
     incList.removeAt(id);
-    sortIncEntries();
     await writeJson();
   }
 
   Future<void> rmvExp(int id) async {
     expList.removeAt(id);
-    sortExpEntries();
     await writeJson();
   }
 
