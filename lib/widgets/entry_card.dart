@@ -71,7 +71,7 @@ class _EntryCardState extends State<EntryCard> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(
-                width: MediaQuery.of(context).size.width - 180,
+                width: MediaQuery.of(context).size.width - 200,
                 child: Text(
                   widget.description!,
                   style: bodySmall,

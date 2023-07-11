@@ -17,4 +17,13 @@ class EntryData{
     timestamp = json["timestamp"];
     description = json["description"];
   }
+
+  Map<String, dynamic> toJson() {
+    return {
+      "name": name,
+      "amount": amount,
+      "timestamp": timestamp,
+      "description": description
+    };
+  }
 }

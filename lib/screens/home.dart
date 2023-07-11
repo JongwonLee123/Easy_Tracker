@@ -17,10 +17,50 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  List<Widget> incWdgList = [];
+  List<Widget> expWdgList = [];
 
-  Future<EntryManager> readData() async {
-    EntryManager d = EntryManager();
-    d.loadJson();
+  Future<EntryManager> prepareData() async {
+    incWdgList = [];
+    expWdgList = [];
+    EntryManager d = await EntryManager.create();
+    const int displayLimit = 2;
+    int c = 0;
+    if (d.incList.isEmpty) {
+      incWdgList.add(const SizedBox(height: 10));
+      incWdgList.add(const Text("No Data", style: bodySmall));
+    }
+    if (d.expList.isEmpty) {
+      expWdgList.add(const SizedBox(height: 10));
+      expWdgList.add(const Text("No Data", style: bodySmall));
+    }
+    for (var entry in d.incList) {
+      if (c++ >= displayLimit) {break;}
+      incWdgList.add(const SizedBox(height: 10));
+      incWdgList.add(
+        EntryCard(
+          id: c - 1,
+          name: entry.name!,
+          amount: entry.amount,
+          timestamp: entry.timestamp,
+          description: entry.description!
+        )
+      );
+    }
+    c = 0;
+    for (var entry in d.expList) {
+      if (c++ >= displayLimit) {break;}
+      expWdgList.add(const SizedBox(height: 10));
+      expWdgList.add(
+        EntryCard(
+          id: c - 1,
+          name: entry.name!,
+          amount: -(entry.amount),
+          timestamp: entry.timestamp,
+          description: entry.description!
+        )
+      );
+    }
     return d;
   }
 
@@ -29,56 +69,24 @@ class _HomePageState extends State<HomePage> {
     Future<EntryData> addData(BuildContext context) async {
       return await Navigator.of(context).push(
         MaterialPageRoute(builder: (context) {
-          return AddPage();
+          return const AddPage();
         })
       );
     }
 
     return FutureBuilder(
-      future: readData(),
+      future: prepareData(),
       builder: (context, data) {
         if (data.hasError) {
-          return Center(child: Text("Error ${data.error}"));
-        } else if (data.hasData) {
-          EntryManager dataALL = data.data as EntryManager;
-          dataALL.calcIncThisMonth();
-          dataALL.calcExpThisMonth();
-          List<Widget> incWdgList = [];
-          List<Widget> expWdgList = [];
-          const int displayLimit = 2;
-          int c = 0;
-          for (var entry in dataALL.incList) {
-            if (c++ >= displayLimit) {
-              break;
-            }
-            incWdgList.add(const SizedBox(height: 10));
-            incWdgList.add(
-                EntryCard(
-                    id: c - 1,
-                    name: entry.name!,
-                    amount: entry.amount,
-                    timestamp: entry.timestamp,
-                    description: entry.description!
-                )
-            );
-          }
-          c = 0;
-          for (var entry in dataALL.expList) {
-            if (c++ >= displayLimit) {
-              break;
-            }
-            expWdgList.add(const SizedBox(height: 10));
-            expWdgList.add(
-                EntryCard(
-                    id: c - 1,
-                    name: entry.name!,
-                    amount: -(entry.amount),
-                    timestamp: entry.timestamp,
-                    description: entry.description!
-                )
-            );
-          }
-
+          return Center(
+            child: Text(
+              "Error: ${data.error}",
+              style: bodyMedium,
+            ));
+        } else if (data.connectionState == ConnectionState.waiting) {
+          return const Center(child: CircularProgressIndicator());
+        } else {
+          EntryManager dataManager = data.data as EntryManager;
           return Scaffold(
             floatingActionButton: FloatingActionButton(
               backgroundColor: btnWhite,
@@ -88,11 +96,24 @@ class _HomePageState extends State<HomePage> {
               ),
               onPressed: () async {
                 final EntryData result = await addData(context);
-                if (result.name == null) {
-                  print("Returned!: NULL");
-                } else {
-                  print("Returned: ${result.name}, ${result.amount}!");
+                if (result.name != null) {
+                  EntryData newData = EntryData(
+                    name: result.name,
+                    amount: result.amount,
+                    timestamp: result.timestamp,
+                    description: result.description
+                  );
+                  if (result.amount.isNegative) {
+                    newData.amount = -(newData.amount);
+                    dataManager.addExp(newData);
+                  } else {
+                    dataManager.addInc(newData);
+                  }
+                  await dataManager.writeJson();
                 }
+                dataManager.loadJson();
+                // Refresh
+                setState(() {});
                 // add new STUFF HERE!
               },
             ),
@@ -107,8 +128,8 @@ class _HomePageState extends State<HomePage> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     NetCard(
-                      income: dataALL.incThisMonth,
-                      expense: dataALL.expThisMonth,
+                      income: dataManager.calcIncThisMonth(),
+                      expense: dataManager.calcExpThisMonth(),
                     ),
                     const SizedBox(height: 20),
                     Column(
@@ -128,7 +149,7 @@ class _HomePageState extends State<HomePage> {
                                 Navigator.of(context).push(
                                   MaterialPageRoute(
                                     builder: (context) {
-                                      return IncomePage(data: dataALL);
+                                      return IncomePage(data: dataManager);
                                     }
                                   )
                                 );
@@ -163,7 +184,7 @@ class _HomePageState extends State<HomePage> {
                                 Navigator.of(context).push(
                                   MaterialPageRoute(
                                     builder: (context) {
-                                      return ExpensePage(data: dataALL);
+                                      return ExpensePage(data: dataManager);
                                     }
                                   )
                                 );
@@ -185,8 +206,6 @@ class _HomePageState extends State<HomePage> {
               )
             )
           );
-        } else {
-          return const Center(child: CircularProgressIndicator());
         }
       }
     );
