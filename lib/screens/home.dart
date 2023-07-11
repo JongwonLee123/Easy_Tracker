@@ -116,7 +116,7 @@ class _HomePageState extends State<HomePage> {
                   children: [
                     NetCard(
                       income: dataManager.calcIncThisMonth(),
-                      expense: -(dataManager.calcExpThisMonth()),
+                      expense: dataManager.calcExpThisMonth(),
                     ),
                     const SizedBox(height: 20),
                     Column(
