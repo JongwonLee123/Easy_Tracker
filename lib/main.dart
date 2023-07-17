@@ -29,7 +29,7 @@ class MainApp extends StatelessWidget {
         "/Home": (context) => const HomePage(),
         "/Profile": (context) => const ProfilePage(),
         "/AddEditEntry": (context) {
-          final AddPageArguments d = ModalRoute.of(context)?.settings.arguments as AddPageArguments;
+          final AddEditPageArguments d = ModalRoute.of(context)?.settings.arguments as AddEditPageArguments;
           return AddPage(addPageArguments: d);
         },
         "/Expense": (context) {

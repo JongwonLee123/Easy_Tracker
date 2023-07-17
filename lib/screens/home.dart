@@ -64,7 +64,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
 
-    Future<EntryData> addData(BuildContext context, AddPageArguments nullData) async {
+    Future<EntryData> addData(BuildContext context, AddEditPageArguments nullData) async {
       return await Navigator.of(context).pushNamed(
         "/AddEditEntry",
         arguments: nullData
@@ -100,7 +100,7 @@ class _HomePageState extends State<HomePage> {
                 );
                 final EntryData returnData = await addData(
                   context,
-                  AddPageArguments(true, nullData)
+                  AddEditPageArguments(true, nullData)
                 );
                 if (returnData.name != null) {
                   if (returnData.amount.isNegative) {

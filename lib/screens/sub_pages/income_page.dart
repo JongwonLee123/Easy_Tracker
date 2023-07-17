@@ -22,7 +22,7 @@ class _IncomePageState extends State<IncomePage> {
   Future<void> editIncData(BuildContext ctx, EntryData eD, EntryManager eM) async {
     EntryData newData = await Navigator.of(ctx).pushNamed(
         "/AddEditEntry",
-        arguments: AddPageArguments(true, eD)
+        arguments: AddEditPageArguments(true, eD)
     ) as EntryData;
     if (newData.name != null) {
       eM.rmvInc(eD.id);

@@ -22,7 +22,7 @@ class _ExpensePageState extends State<ExpensePage> {
   Future<void> editExpData(BuildContext ctx, EntryData eD, EntryManager eM) async {
     EntryData newData = await Navigator.of(ctx).pushNamed(
         "/AddEditEntry",
-        arguments: AddPageArguments(false, eD)
+        arguments: AddEditPageArguments(false, eD)
     ) as EntryData;
     if (newData.name != null) {
       eM.rmvExp(eD.id);

@@ -7,18 +7,18 @@ import 'package:intl/intl.dart';
 // if Add new data, pass in "nullData" as EntryData
 // nullData is defined as EntryData(name: null, ...);
 // if Edit existing data, pass in EntryData
-class AddPageArguments {
+class AddEditPageArguments {
   bool inc = true;
   late EntryData entryData;
 
-  AddPageArguments(bool b, EntryData eD) {
+  AddEditPageArguments(bool b, EntryData eD) {
     inc = b;
     entryData = eD;
   }
 }
 
 class AddPage extends StatefulWidget {
-  final AddPageArguments addPageArguments;
+  final AddEditPageArguments addPageArguments;
 
   const AddPage({
     Key? key,
@@ -30,7 +30,7 @@ class AddPage extends StatefulWidget {
 }
 
 class _AddPageState extends State<AddPage> {
-  late AddPageArguments addPageArguments;
+  late AddEditPageArguments addPageArguments;
   String pageFunction = "Add";
 
   bool inc = true;
@@ -66,7 +66,7 @@ class _AddPageState extends State<AddPage> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    addPageArguments = ModalRoute.of(context)!.settings.arguments as AddPageArguments;
+    addPageArguments = ModalRoute.of(context)!.settings.arguments as AddEditPageArguments;
 
     if (addPageArguments.entryData.name != null) {
       inc = addPageArguments.inc ? true : false;
