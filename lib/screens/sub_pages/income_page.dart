@@ -1,3 +1,5 @@
+import 'package:easy_tracker/screens/sub_pages/add_edit_page.dart';
+import 'package:easy_tracker/utils/entry_data.dart';
 import 'package:easy_tracker/utils/entry_manager.dart';
 import 'package:easy_tracker/utils/themes.dart';
 import 'package:easy_tracker/widgets/entry_card.dart';
@@ -17,6 +19,26 @@ class IncomePage extends StatefulWidget {
 }
 
 class _IncomePageState extends State<IncomePage> {
+  Future<void> editIncData(BuildContext ctx, EntryData eD, EntryManager eM) async {
+    EntryData newData = await Navigator.of(ctx).pushNamed(
+        "/AddEditEntry",
+        arguments: AddPageArguments(true, eD)
+    ) as EntryData;
+    if (newData.name != null) {
+      eM.rmvInc(eD.id);
+      if (newData.amount.isNegative) {
+        newData.amount = -(newData.amount);
+        await eM.addExp(newData);
+      } else {
+        await eM.addInc(newData);
+      }
+      await eM.loadJson();
+    }
+    if (ctx.mounted) {
+      Navigator.pop(ctx, newData);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     // extract arguments
@@ -81,8 +103,9 @@ class _IncomePageState extends State<IncomePage> {
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
                             TextButton(
-                              onPressed: () {
-                                Navigator.pop(context);
+                              onPressed: () async {
+                                await editIncData(context, entry, data);
+                                setState(() {});
                               },
                               style: txtBtnTheme,
                               child: const Text(

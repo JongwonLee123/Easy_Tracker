@@ -1,7 +1,7 @@
 import 'package:easy_tracker/screens/home.dart';
 import 'package:easy_tracker/screens/main_page.dart';
 import 'package:easy_tracker/screens/profile.dart';
-import 'package:easy_tracker/screens/sub_pages/add_page.dart';
+import 'package:easy_tracker/screens/sub_pages/add_edit_page.dart';
 import 'package:easy_tracker/screens/sub_pages/expense_page.dart';
 import 'package:easy_tracker/screens/sub_pages/income_page.dart';
 import 'package:flutter/material.dart';
@@ -28,7 +28,10 @@ class MainApp extends StatelessWidget {
         "/Main": (context) => const MainPage(),
         "/Home": (context) => const HomePage(),
         "/Profile": (context) => const ProfilePage(),
-        "/AddEntry": (context) => const AddPage(),
+        "/AddEditEntry": (context) {
+          final AddPageArguments d = ModalRoute.of(context)?.settings.arguments as AddPageArguments;
+          return AddPage(addPageArguments: d);
+        },
         "/Expense": (context) {
           final EntryManager d = ModalRoute.of(context)?.settings.arguments as EntryManager;
           return ExpensePage(entryManager: d);

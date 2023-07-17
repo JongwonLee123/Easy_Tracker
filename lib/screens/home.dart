@@ -1,3 +1,4 @@
+import 'package:easy_tracker/screens/sub_pages/add_edit_page.dart';
 import 'package:easy_tracker/utils/entry_data.dart';
 import 'package:easy_tracker/utils/entry_manager.dart';
 import 'package:easy_tracker/widgets/entry_card.dart';
@@ -6,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:easy_tracker/widgets/net_card.dart';
 
 class HomePage extends StatefulWidget {
-
   const HomePage ({Key? key}) : super(key: key);
 
   @override
@@ -63,8 +63,12 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    Future<EntryData> addData(BuildContext context) async {
-      return await Navigator.of(context).pushNamed("/AddEntry") as EntryData;
+
+    Future<EntryData> addData(BuildContext context, AddPageArguments nullData) async {
+      return await Navigator.of(context).pushNamed(
+        "/AddEditEntry",
+        arguments: nullData
+      ) as EntryData;
     }
 
     return FutureBuilder(
@@ -88,7 +92,16 @@ class _HomePageState extends State<HomePage> {
                 color: Colors.black
               ),
               onPressed: () async {
-                final EntryData returnData = await addData(context);
+                // nullData is required to supply the AddPage()
+                EntryData nullData = EntryData(
+                  id: -1,
+                  amount: 0,
+                  timestamp: 0,
+                );
+                final EntryData returnData = await addData(
+                  context,
+                  AddPageArguments(true, nullData)
+                );
                 if (returnData.name != null) {
                   if (returnData.amount.isNegative) {
                     returnData.amount = -(returnData.amount);
@@ -172,7 +185,7 @@ class _HomePageState extends State<HomePage> {
                                 onPressed: () async {
                                   await Navigator.of(context).pushNamed(
                                     "/Expense",
-                                    arguments: dataManager,
+                                    arguments: dataManager
                                   );
                                   setState(() {}); // REFRESHER
                                 },

@@ -3,18 +3,40 @@ import 'package:flutter/material.dart';
 import 'package:easy_tracker/utils/themes.dart';
 import 'package:intl/intl.dart';
 
+// inc is used to control the initial state of radio buttons
+// if Add new data, pass in "nullData" as EntryData
+// nullData is defined as EntryData(name: null, ...);
+// if Edit existing data, pass in EntryData
+class AddPageArguments {
+  bool inc = true;
+  late EntryData entryData;
+
+  AddPageArguments(bool b, EntryData eD) {
+    inc = b;
+    entryData = eD;
+  }
+}
+
 class AddPage extends StatefulWidget {
-  const AddPage({Key? key}): super(key: key);
+  final AddPageArguments addPageArguments;
+
+  const AddPage({
+    Key? key,
+    required this.addPageArguments
+  }): super(key: key);
 
   @override
   State<AddPage> createState() => _AddPageState();
 }
 
 class _AddPageState extends State<AddPage> {
+  late AddPageArguments addPageArguments;
+  String pageFunction = "Add";
+
   bool inc = true;
-  final nameController = TextEditingController();
-  final amountController = TextEditingController();
-  final descController = TextEditingController();
+  TextEditingController nameController = TextEditingController();
+  TextEditingController amountController = TextEditingController();
+  TextEditingController descController = TextEditingController();
   DateTime pickedDate = DateTime.now();
   TimeOfDay pickedTime = TimeOfDay.now();
 
@@ -40,6 +62,24 @@ class _AddPageState extends State<AddPage> {
     super.dispose();
   }
 
+  // this function is called when dependencies change
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    addPageArguments = ModalRoute.of(context)!.settings.arguments as AddPageArguments;
+
+    if (addPageArguments.entryData.name != null) {
+      inc = addPageArguments.inc ? true : false;
+      EntryData d = addPageArguments.entryData;
+      nameController = TextEditingController(text: d.name);
+      amountController = TextEditingController(text: d.amount.toString());
+      descController = TextEditingController(text: d.description);
+      pickedDate = DateTime.fromMillisecondsSinceEpoch(d.timestamp);
+      pickedTime = TimeOfDay.fromDateTime(pickedDate);
+      pageFunction = "Edit";
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -56,8 +96,8 @@ class _AddPageState extends State<AddPage> {
       },
       child: Scaffold(
       appBar: AppBar(
-        title: const Text(
-          "Add new Entry",
+        title: Text(
+          "$pageFunction Entry",
           style: bodyMedium,
         ),
         backgroundColor: fgWhite,
@@ -84,8 +124,8 @@ class _AddPageState extends State<AddPage> {
                 children: [
                   Container(
                     alignment: Alignment.centerLeft,
-                    child: const Text(
-                      "Add new Entry",
+                    child: Text(
+                      "$pageFunction Entry",
                       style: bodyMedium,
                     ),
                   ),
@@ -354,7 +394,7 @@ class _AddPageState extends State<AddPage> {
                         },
                         style: btnWhiteTheme,
                         child: const Text(
-                          'Add',
+                          "Confirm",
                           textAlign: TextAlign.center,
                           style: bodyMedium,
                         ),

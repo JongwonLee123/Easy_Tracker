@@ -1,3 +1,5 @@
+import 'package:easy_tracker/screens/sub_pages/add_edit_page.dart';
+import 'package:easy_tracker/utils/entry_data.dart';
 import 'package:easy_tracker/utils/entry_manager.dart';
 import 'package:easy_tracker/utils/themes.dart';
 import 'package:easy_tracker/widgets/entry_card.dart';
@@ -17,6 +19,26 @@ class ExpensePage extends StatefulWidget {
 }
 
 class _ExpensePageState extends State<ExpensePage> {
+  Future<void> editExpData(BuildContext ctx, EntryData eD, EntryManager eM) async {
+    EntryData newData = await Navigator.of(ctx).pushNamed(
+        "/AddEditEntry",
+        arguments: AddPageArguments(false, eD)
+    ) as EntryData;
+    if (newData.name != null) {
+      eM.rmvExp(eD.id);
+      if (newData.amount.isNegative) {
+        newData.amount = -(newData.amount);
+        await eM.addExp(newData);
+      } else {
+        await eM.addInc(newData);
+      }
+      await eM.loadJson();
+    }
+    if (ctx.mounted) {
+      Navigator.pop(ctx, newData);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     // extract arguments
@@ -38,8 +60,8 @@ class _ExpensePageState extends State<ExpensePage> {
                 elevation: 10,
                 child: Container(
                   padding: const EdgeInsets.symmetric(
-                      horizontal: 20,
-                      vertical: 10
+                    horizontal: 20,
+                    vertical: 10
                   ),
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
@@ -81,8 +103,9 @@ class _ExpensePageState extends State<ExpensePage> {
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
                             TextButton(
-                              onPressed: () {
-                                Navigator.pop(context);
+                              onPressed: () async {
+                                await editExpData(context, entry, data);
+                                setState(() {});
                               },
                               style: txtBtnTheme,
                               child: const Text(
@@ -92,7 +115,7 @@ class _ExpensePageState extends State<ExpensePage> {
                             ),
                             TextButton(
                               onPressed: () {
-                                widget.entryManager.rmvExp(entry.id);
+                                data.rmvExp(entry.id);
                                 Navigator.pop(context);
                                 setState(() {});
                               },
