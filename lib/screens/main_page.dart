@@ -1,6 +1,5 @@
 import 'package:easy_tracker/screens/home.dart';
 import 'package:easy_tracker/screens/profile.dart';
-import 'package:easy_tracker/utils/entry_manager.dart';
 import 'package:easy_tracker/utils/themes.dart';
 import 'package:flutter/material.dart';
 

@@ -106,41 +106,41 @@ class _AddPageState extends State<AddPage> {
                           builder: (BuildContext context, BoxConstraints constraints) {
                             final parentWidth = constraints.maxWidth;
                             return Row(
-                                children: [
-                                  SizedBox(
-                                    width: parentWidth * 0.5 - 4,
-                                    height: 50,
-                                    child: ElevatedButton(
-                                      onPressed: () {
-                                        setState(() {
-                                          inc = true;
-                                        });
-                                      },
-                                      style: inc? btnGreenTheme: btnWhiteTheme,
-                                      child: const Text(
-                                        "Income",
-                                        style: bodyMedium,
-                                      ),
+                              children: [
+                                SizedBox(
+                                  width: parentWidth * 0.5 - 4,
+                                  height: 50,
+                                  child: ElevatedButton(
+                                    onPressed: () {
+                                      setState(() {
+                                        inc = true;
+                                      });
+                                    },
+                                    style: inc? btnGreenTheme: btnWhiteTheme,
+                                    child: const Text(
+                                      "Income",
+                                      style: bodyMedium,
                                     ),
                                   ),
-                                  const SizedBox(width: 8),
-                                  SizedBox(
-                                    width: parentWidth * 0.5 - 4,
-                                    height: 50,
-                                    child: ElevatedButton(
-                                      onPressed: () {
-                                        setState(() {
-                                          inc = false;
-                                        });
-                                      },
-                                      style: inc? btnWhiteTheme: btnRedTheme,
-                                      child: const Text(
-                                        "Expense",
-                                        style: bodyMedium,
-                                      ),
+                                ),
+                                const SizedBox(width: 8),
+                                SizedBox(
+                                  width: parentWidth * 0.5 - 4,
+                                  height: 50,
+                                  child: ElevatedButton(
+                                    onPressed: () {
+                                      setState(() {
+                                        inc = false;
+                                      });
+                                    },
+                                    style: inc? btnWhiteTheme: btnRedTheme,
+                                    child: const Text(
+                                      "Expense",
+                                      style: bodyMedium,
                                     ),
-                                  )
-                                ]
+                                  ),
+                                )
+                              ]
                             );
                           },
                         ),

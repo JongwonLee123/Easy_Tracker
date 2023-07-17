@@ -84,9 +84,10 @@ class _IncomePageState extends State<IncomePage> {
                               onPressed: () {
                                 Navigator.pop(context);
                               },
+                              style: txtBtnTheme,
                               child: const Text(
-                                  'Edit',
-                                  style: bodySmall
+                                'Edit',
+                                style: bodySmall
                               ),
                             ),
                             TextButton(
@@ -95,6 +96,7 @@ class _IncomePageState extends State<IncomePage> {
                                 Navigator.pop(context);
                                 setState(() {});
                               },
+                              style: txtBtnTheme,
                               child: const Text(
                                 'Delete',
                                 style: bodySmallRed
@@ -109,6 +111,7 @@ class _IncomePageState extends State<IncomePage> {
                           onPressed: () {
                             Navigator.pop(context);
                           },
+                          style: txtBtnTheme,
                           child: const Text(
                             'Close',
                             style: bodySmall

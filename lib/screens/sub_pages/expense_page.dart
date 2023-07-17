@@ -84,6 +84,7 @@ class _ExpensePageState extends State<ExpensePage> {
                               onPressed: () {
                                 Navigator.pop(context);
                               },
+                              style: txtBtnTheme,
                               child: const Text(
                                 'Edit',
                                 style: bodySmall
@@ -95,6 +96,7 @@ class _ExpensePageState extends State<ExpensePage> {
                                 Navigator.pop(context);
                                 setState(() {});
                               },
+                              style: txtBtnTheme,
                               child: const Text(
                                 'Delete',
                                 style: bodySmallRed
@@ -109,9 +111,10 @@ class _ExpensePageState extends State<ExpensePage> {
                           onPressed: () {
                             Navigator.pop(context);
                           },
+                          style: txtBtnTheme,
                           child: const Text(
-                              'Close',
-                              style: bodySmall
+                            'Close',
+                            style: bodySmall
                           ),
                         ),
                       )

@@ -1,7 +1,6 @@
 import 'package:path_provider/path_provider.dart';
 import 'dart:io';
 import 'entry_data.dart';
-import 'package:flutter/services.dart' show rootBundle;
 import 'dart:convert';
 
 Future<String> get _localPath async {

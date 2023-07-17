@@ -41,7 +41,7 @@ final btnRedTheme = ElevatedButton.styleFrom(
   )
 );
 final txtBtnTheme = TextButton.styleFrom(
-  padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+  padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 4),
 );
 
 const generalShadow = BoxShadow(
@@ -61,19 +61,19 @@ const bodyLarge = TextStyle(
   color: Colors.black,
   fontSize: 32,
   fontFamily: 'Quicksand',
-  fontWeight: FontWeight.w900,
+  fontWeight: FontWeight.bold,
 );
 const bodyMedium = TextStyle(
   color: Colors.black,
   fontSize: 20,
   fontFamily: 'Quicksand',
-  fontWeight: FontWeight.w600,
+  fontWeight: FontWeight.bold,
 );
 const bodySmall = TextStyle(
   color: Colors.black,
   fontSize: 16,
   fontFamily: 'Quicksand',
-  fontWeight: FontWeight.w500,
+  fontWeight: FontWeight.normal,
 );
 const bodySmallRed = TextStyle(
   color: Color(0xFFDD3030),
