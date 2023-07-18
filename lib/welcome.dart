@@ -1,4 +1,4 @@
-import 'package:easy_tracker/utils/themes.dart';
+import 'package:easy_tracker/test/themes.dart';
 import 'package:flutter/material.dart';
 import 'package:easy_tracker/screens/main_page.dart';
 import 'package:easy_tracker/widgets/welcome_card.dart';

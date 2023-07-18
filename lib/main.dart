@@ -6,7 +6,7 @@ import 'package:easy_tracker/screens/sub_pages/expense_page.dart';
 import 'package:easy_tracker/screens/sub_pages/income_page.dart';
 import 'package:flutter/material.dart';
 import 'package:easy_tracker/welcome.dart';
-import 'package:easy_tracker/utils/themes.dart';
+import 'package:easy_tracker/test/themes.dart';
 import 'package:easy_tracker/utils/entry_manager.dart';
 
 // The main dart file where the app starts.
@@ -27,7 +27,7 @@ class MainApp extends StatelessWidget {
         "/": (context) => const WelcomePage(),
         "/Main": (context) => const MainPage(),
         "/Home": (context) => const HomePage(),
-        "/Profile": (context) => const ProfilePage(),
+        "/Profile": (context) => ProfilePage(),
         "/AddEntry": (context) => const AddPage(),
         "/Expense": (context) {
           final EntryManager d = ModalRoute.of(context)?.settings.arguments as EntryManager;

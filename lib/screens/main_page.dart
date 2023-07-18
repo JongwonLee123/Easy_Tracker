@@ -1,7 +1,7 @@
 import 'package:easy_tracker/screens/home.dart';
 import 'package:easy_tracker/screens/profile.dart';
 import 'package:easy_tracker/utils/entry_manager.dart';
-import 'package:easy_tracker/utils/themes.dart';
+import 'package:easy_tracker/test/themes.dart';
 import 'package:flutter/material.dart';
 
 // this main_page.dart handles the main navigation
@@ -18,7 +18,7 @@ class _MainPageState extends State<MainPage> {
   int currentIndex = 0;
   final pages = [
     const HomePage(),
-    const ProfilePage(),
+    ProfilePage(),
   ];
 
   @override

@@ -1,4 +1,4 @@
-import "package:easy_tracker/utils/themes.dart";
+import 'package:easy_tracker/test/themes.dart';
 import "package:flutter/material.dart";
 import "package:intl/intl.dart";
 import "package:flutter_svg/flutter_svg.dart";

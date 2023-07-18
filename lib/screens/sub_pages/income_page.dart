@@ -1,5 +1,5 @@
 import 'package:easy_tracker/utils/entry_manager.dart';
-import 'package:easy_tracker/utils/themes.dart';
+import 'package:easy_tracker/test/themes.dart';
 import 'package:easy_tracker/widgets/entry_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';

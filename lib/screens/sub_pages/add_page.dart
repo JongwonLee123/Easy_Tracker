@@ -1,6 +1,6 @@
 import 'package:easy_tracker/utils/entry_data.dart';
 import 'package:flutter/material.dart';
-import 'package:easy_tracker/utils/themes.dart';
+import 'package:easy_tracker/test/themes.dart';
 import 'package:intl/intl.dart';
 
 class AddPage extends StatefulWidget {

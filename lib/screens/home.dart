@@ -1,7 +1,7 @@
 import 'package:easy_tracker/utils/entry_data.dart';
 import 'package:easy_tracker/utils/entry_manager.dart';
 import 'package:easy_tracker/widgets/entry_card.dart';
-import 'package:easy_tracker/utils/themes.dart';
+import 'package:easy_tracker/test/themes.dart';
 import 'package:flutter/material.dart';
 import 'package:easy_tracker/widgets/net_card.dart';
 import 'package:easy_tracker/screens/sub_pages/income_page.dart';

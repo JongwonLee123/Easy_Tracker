@@ -1,4 +1,4 @@
-import 'package:easy_tracker/model/user.dart';
+import 'package:easy_tracker/test/user.dart';
 
 class UserPreferences {
   static const myUser = User(
