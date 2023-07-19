@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:easy_tracker/screens/sub_pages/edit_page.dart';
 
 class ProfileInfoWidget extends StatelessWidget {
   @override
@@ -68,7 +69,12 @@ class ProfileInfoWidget extends StatelessWidget {
                         ),
                       ),
                       TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => EditProfilePage(ProfileField.username)),
+                          );
+                        },
                         style: TextButton.styleFrom(padding: EdgeInsets.zero),
                         child: Container(
                           width: 56 * fem,
@@ -150,7 +156,12 @@ class ProfileInfoWidget extends StatelessWidget {
                         ),
                       ),
                       TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => EditProfilePage(ProfileField.email)),
+                          );
+                        },
                         style: TextButton.styleFrom(padding: EdgeInsets.zero),
                         child: Container(
                           width: 56 * fem,
@@ -232,7 +243,12 @@ class ProfileInfoWidget extends StatelessWidget {
                         ),
                       ),
                       TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => EditProfilePage(ProfileField.phoneNumber)),
+                          );
+                        },
                         style: TextButton.styleFrom(padding: EdgeInsets.zero),
                         child: Container(
                           width: 56 * fem,
@@ -270,7 +286,12 @@ class ProfileInfoWidget extends StatelessWidget {
           ),
           SizedBox(height: 20 * fem),
           TextButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => EditProfilePage(ProfileField.password)),
+              );
+            },
             style: TextButton.styleFrom(padding: EdgeInsets.zero),
             child: Container(
               width: 188 * fem,

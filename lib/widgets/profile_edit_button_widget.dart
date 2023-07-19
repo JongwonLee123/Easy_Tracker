@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:easy_tracker/screens/sub_pages/edit_page.dart';
 
 class ProfileEditButton extends StatelessWidget {
   Widget build(BuildContext context) {
@@ -8,7 +9,12 @@ class ProfileEditButton extends StatelessWidget {
     return Container(
       margin: EdgeInsets.fromLTRB(39.5 * fem, 0 * fem, 39.5 * fem, 0 * fem),
       child: TextButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => EditProfilePage(ProfileField.username)),
+          );
+        },
         style: TextButton.styleFrom(
           padding: EdgeInsets.zero,
         ),
