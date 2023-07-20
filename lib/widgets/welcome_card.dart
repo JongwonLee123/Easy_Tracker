@@ -16,14 +16,7 @@ class WelcomeCard extends StatelessWidget {
       decoration: ShapeDecoration(
         gradient: mainGradient,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-        shadows: const [
-          BoxShadow(
-            color: Color(0x3F000000),
-            blurRadius: 4,
-            offset: Offset(0, 0),
-            spreadRadius: 0,
-          )
-        ],
+        shadows: const [generalShadow],
       ),
       child: const Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -36,7 +29,7 @@ class WelcomeCard extends StatelessWidget {
           SizedBox(height: 20),
           Text(
             'to personal finance tracker',
-            style: bodySmall,
+            style: bodyMedium,
           ),
         ],
       ),

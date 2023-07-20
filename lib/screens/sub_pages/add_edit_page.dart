@@ -251,7 +251,7 @@ class _AddPageState extends State<AddPage> {
                                     style: btnWhiteTheme,
                                     child: Text(
                                       DateFormat("MMM dd, yyyy").format(pickedDate),
-                                      style: bodyMedium,
+                                      style: bodyNumMedium,
                                     ),
                                   )
                                 ),
@@ -280,7 +280,7 @@ class _AddPageState extends State<AddPage> {
                                           pickedTime.minute
                                         )
                                       ),
-                                      style: bodyMedium,
+                                      style: bodyNumMedium,
                                     ),
                                   )
                                 )

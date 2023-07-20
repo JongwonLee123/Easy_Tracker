@@ -89,7 +89,7 @@ class _NetCardState extends State<NetCard> {
                   ),
                 Text(
                   calculateNet(widget.income, widget.expense),
-                  style: bodyLarge,
+                  style: bodyNumLarge,
                 ),
               ]
             )
@@ -117,7 +117,7 @@ class _NetCardState extends State<NetCard> {
                     ),
                     Text(
                       formatUSD(widget.income),
-                      style: bodyMedium,
+                      style: bodyNumMedium,
                     )
                   ],
                 )
@@ -147,7 +147,7 @@ class _NetCardState extends State<NetCard> {
                     ),
                     Text(
                       formatUSD(widget.expense),
-                      style: bodyMedium,
+                      style: bodyNumMedium,
                     )
                   ],
                 )

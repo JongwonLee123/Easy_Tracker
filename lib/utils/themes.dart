@@ -59,25 +59,43 @@ const mainGradient = LinearGradient(
 
 const bodyLarge = TextStyle(
   color: Colors.black,
-  fontSize: 32,
+  fontSize: 34,
   fontFamily: 'Quicksand',
-  fontWeight: FontWeight.bold,
+  fontWeight: FontWeight.w800,
 );
 const bodyMedium = TextStyle(
   color: Colors.black,
   fontSize: 20,
   fontFamily: 'Quicksand',
-  fontWeight: FontWeight.bold,
+  fontWeight: FontWeight.w800,
 );
 const bodySmall = TextStyle(
   color: Colors.black,
   fontSize: 16,
   fontFamily: 'Quicksand',
-  fontWeight: FontWeight.normal,
+  fontWeight: FontWeight.w700,
 );
 const bodySmallRed = TextStyle(
   color: Color(0xFFDD3030),
   fontSize: 16,
   fontFamily: 'Quicksand',
   fontWeight: FontWeight.w500,
+);
+const bodyNumLarge = TextStyle(
+  color: Colors.black,
+  fontSize: 34,
+  fontFamily: 'Rubik',
+  fontWeight: FontWeight.w800,
+);
+const bodyNumMedium = TextStyle(
+  color: Colors.black,
+  fontSize: 20,
+  fontFamily: 'Rubik',
+  fontWeight: FontWeight.w600,
+);
+const bodyNumSmall = TextStyle(
+  color: Colors.black,
+  fontSize: 16,
+  fontFamily: 'Rubik',
+  fontWeight: FontWeight.w600,
 );

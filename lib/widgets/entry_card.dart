@@ -64,7 +64,7 @@ class _EntryCardState extends State<EntryCard> {
               ),
               Text(
                 timestampToDate(widget.timestamp),
-                style: bodySmall,
+                style: bodyNumSmall,
               )
             ]
           ),
@@ -101,7 +101,7 @@ class _EntryCardState extends State<EntryCard> {
                       ),
                     Text(
                       formatUSD(widget.amount),
-                      style: bodyMedium,
+                      style: bodyNumMedium,
                     )
                   ]
                 )

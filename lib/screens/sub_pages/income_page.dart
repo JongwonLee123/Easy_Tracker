@@ -2,6 +2,7 @@ import 'package:easy_tracker/screens/sub_pages/add_edit_page.dart';
 import 'package:easy_tracker/utils/entry_data.dart';
 import 'package:easy_tracker/utils/entry_manager.dart';
 import 'package:easy_tracker/utils/themes.dart';
+import 'package:easy_tracker/widgets/confirm_delete_dialog.dart';
 import 'package:easy_tracker/widgets/entry_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -33,9 +34,24 @@ class _IncomePageState extends State<IncomePage> {
         await eM.addInc(newData);
       }
       await eM.loadJson();
+      if (ctx.mounted) {
+        Navigator.of(ctx).pop(newData);
+      }
     }
-    if (ctx.mounted) {
-      Navigator.pop(ctx, newData);
+  }
+
+  Future<void> delIncData(BuildContext ctx, int index, EntryManager eM) async {
+    bool shouldDelete = await showDialog(
+      context: ctx,
+      builder: (BuildContext context) {
+        return const ConfirmDeleteDialog();
+      }
+    );
+    if (shouldDelete) {
+      eM.rmvInc(index);
+      if (ctx.mounted) {
+        Navigator.of(ctx).pop();
+      }
     }
   }
 
@@ -83,50 +99,46 @@ class _IncomePageState extends State<IncomePage> {
                           ),
                           Text(
                             formatUSD(entry.amount),
-                            style: bodyMedium,
+                            style: bodyNumMedium,
                           )
                         ]
                       ),
                       const SizedBox(height: 4),
                       Text(
                         timestampToDate(entry.timestamp),
-                        style: bodySmall,
+                        style: bodyNumSmall,
                       ),
                       const SizedBox(height: 20),
                       Text(
                         entry.description as String,
                         style: bodyMedium,
                       ),
-                      Container(
-                        alignment: Alignment.centerRight,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            TextButton(
-                              onPressed: () async {
-                                await editIncData(context, entry, data);
-                                setState(() {});
-                              },
-                              style: txtBtnTheme,
-                              child: const Text(
-                                'Edit',
-                                style: bodySmall
-                              ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          TextButton(
+                            onPressed: () async {
+                              await editIncData(context, entry, data);
+                              setState(() {});
+                            },
+                            style: txtBtnTheme,
+                            child: const Text(
+                              'Edit',
+                              style: bodySmall
                             ),
-                            TextButton(
-                              onPressed: () {
-                                widget.entryManager.rmvInc(entry.id);
-                                Navigator.pop(context);
-                                setState(() {});
-                              },
-                              style: txtBtnTheme,
-                              child: const Text(
-                                'Delete',
-                                style: bodySmallRed
-                              ),
+                          ),
+                          TextButton(
+                            onPressed: () async {
+                              await delIncData(context, entry.id, data);
+                              setState(() {});
+                            },
+                            style: txtBtnTheme,
+                            child: const Text(
+                              'Delete',
+                              style: bodySmallRed
                             ),
-                          ],
-                        )
+                          ),
+                        ],
                       ),
                       Container(
                         alignment: Alignment.centerRight,
