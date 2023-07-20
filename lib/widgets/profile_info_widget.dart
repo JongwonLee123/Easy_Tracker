@@ -10,7 +10,7 @@ class ProfileInfoWidget extends StatelessWidget {
 
     return Container(
       padding: EdgeInsets.fromLTRB(10 * fem, 10 * fem, 10 * fem, 10 * fem),
-      width: double.infinity,
+      width: 390,
       decoration: BoxDecoration(
         color: fgWhite,
         borderRadius: BorderRadius.circular(8 * fem),
@@ -28,7 +28,7 @@ class ProfileInfoWidget extends StatelessWidget {
         children: [
           Container(
             padding: EdgeInsets.fromLTRB(0 * fem, 2 * fem, 0 * fem, 2 * fem),
-            width: double.infinity,
+            width: 390,
             height: 33 * fem,
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -45,17 +45,11 @@ class ProfileInfoWidget extends StatelessWidget {
                 ),
                 SizedBox(width: 20 * fem), // Add a small spacing between the label and text
                 Expanded(
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Container(
-                        child: Text(
-                          'Someone',
-                          style: bodyMedium.copyWith(color: Color(0x99000000)),
-                        ),
-                      ),
-                      Spacer(), // Add a spacer to push the "Someone" text to the right
-                    ],
+                  child: Container(
+                    child: Text(
+                      'Someone',
+                      style: bodyMedium.copyWith(color: Color(0x99000000)),
+                    ),
                   ),
                 ),
                 SizedBox(width: 20 * fem), // Add spacing between "Someone" and the "Edit" button
@@ -98,7 +92,7 @@ class ProfileInfoWidget extends StatelessWidget {
           SizedBox(height: 20 * fem),
           Container(
             padding: EdgeInsets.fromLTRB(0 * fem, 2 * fem, 0 * fem, 2 * fem),
-            width: double.infinity,
+            width: 390,
             height: 33 * fem,
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -116,17 +110,11 @@ class ProfileInfoWidget extends StatelessWidget {
                 ),
                 SizedBox(width: 20 * fem), // Add a small spacing between the label and text
                 Expanded(
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Container(
-                        child: Text(
-                          '*****@gmail.com',
-                          style: bodyMedium.copyWith(color: Color(0x99000000)),
-                        ),
-                      ),
-                      Spacer(), // Add a spacer to push the email text to the right
-                    ],
+                  child: Container(
+                    child: Text(
+                      '*****@gmail.com',
+                      style: bodyMedium.copyWith(color: Color(0x99000000)),
+                    ),
                   ),
                 ),
                 SizedBox(width: 20 * fem), // Add spacing between email text and the "Edit" button
@@ -169,7 +157,7 @@ class ProfileInfoWidget extends StatelessWidget {
           SizedBox(height: 20 * fem),
           Container(
             padding: EdgeInsets.fromLTRB(0 * fem, 2 * fem, 0 * fem, 2 * fem),
-            width: double.infinity,
+            width: 390,
             height: 33 * fem,
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -187,17 +175,11 @@ class ProfileInfoWidget extends StatelessWidget {
                 ),
                 SizedBox(width: 20 * fem), // Add a small spacing between the label and text
                 Expanded(
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Container(
-                        child: Text(
-                          '******5566',
-                          style: bodyMedium.copyWith(color: Color(0x99000000)),
-                        ),
-                      ),
-                      Spacer(), // Add a spacer to push the phone number text to the right
-                    ],
+                  child: Container(
+                    child: Text(
+                      '******5566',
+                      style: bodyMedium.copyWith(color: Color(0x99000000)),
+                    ),
                   ),
                 ),
                 SizedBox(width: 20 * fem), // Add spacing between the phone number text and the "Edit" button
