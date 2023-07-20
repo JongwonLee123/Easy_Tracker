@@ -1,38 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:easy_tracker/screens/sub_pages/edit_page.dart';
+import 'package:easy_tracker/screens/sub_pages/new_image.dart';
+import 'package:easy_tracker/test/themes.dart';
 
 class ProfileEditButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final double fem = MediaQuery.of(context).textScaleFactor;
     final double ffem = 1.0;
 
-    return Container(
-      margin: EdgeInsets.fromLTRB(39.5 * fem, 0 * fem, 39.5 * fem, 0 * fem),
-      child: TextButton(
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => EditProfilePage(ProfileField.username)),
-          );
-        },
-        style: TextButton.styleFrom(
-          padding: EdgeInsets.zero,
-        ),
-        child: Container(
-          width: double.infinity,
-          height: 45 * fem,
-          decoration: BoxDecoration(
-            color: Color(0x99ffffff),
-            borderRadius: BorderRadius.circular(8 * fem),
-            boxShadow: [
-              BoxShadow(
-                color: Color(0x3f000000),
-                offset: Offset(0 * fem, 0 * fem),
-                blurRadius: 2 * fem,
-              ),
-            ],
-          ),
-          child: Center(
+    return Center(
+      child: ConstrainedBox(
+        constraints: BoxConstraints(maxWidth: 300 * fem),
+        child: ElevatedButton(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => EditProfileImagePage()),
+            );
+          },
+          style: btnWhiteTheme, // Apply the custom button theme here
+          child: Padding(
+            padding: EdgeInsets.all(12 * fem),
             child: Text(
               'Edit Profile',
               style: TextStyle(

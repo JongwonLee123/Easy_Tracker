@@ -7,39 +7,36 @@ const bgColor = Color(0xFFD0DDD7);
 // will use this.
 const fgWhite = Colors.white70;
 
+const btnGrey = Color(0xFFA6A9A8);
 // for buttons and interactive objects
 final btnWhite = Colors.white.withOpacity(0.9);
 
 final mainBtnTheme = ElevatedButton.styleFrom(
-  elevation: 2,
-  minimumSize: const Size(200, 50),
-  backgroundColor: btnWhite,
-  shape: RoundedRectangleBorder(
-    borderRadius: BorderRadius.circular(25),
-  )
-);
+    elevation: 2,
+    minimumSize: const Size(200, 50),
+    backgroundColor: btnWhite,
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(25),
+    ));
 
 final btnWhiteTheme = ElevatedButton.styleFrom(
-  elevation: 2,
-  backgroundColor: btnWhite,
-  shape: RoundedRectangleBorder(
-    borderRadius: BorderRadius.circular(5),
-  )
-);
+    elevation: 2,
+    backgroundColor: btnWhite,
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(5),
+    ));
 final btnGreenTheme = ElevatedButton.styleFrom(
-  elevation: 2,
-  backgroundColor: const Color(0xFF77CD70),
-  shape: RoundedRectangleBorder(
-    borderRadius: BorderRadius.circular(5),
-  )
-);
+    elevation: 2,
+    backgroundColor: const Color(0xFF77CD70),
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(5),
+    ));
 final btnRedTheme = ElevatedButton.styleFrom(
-  elevation: 2,
-  backgroundColor: const Color(0xFFDD8080),
-  shape: RoundedRectangleBorder(
-    borderRadius: BorderRadius.circular(5),
-  )
-);
+    elevation: 2,
+    backgroundColor: const Color(0xFFDD8080),
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(5),
+    ));
 final txtBtnTheme = TextButton.styleFrom(
   padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 10),
 );

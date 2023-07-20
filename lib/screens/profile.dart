@@ -10,15 +10,15 @@ class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Profile'),
-      ),
       body: SingleChildScrollView(
         child: Column(
           children: [
+            const SizedBox(height: 20.0),
             ProfileIcon(),
             ProfileEditButton(),
+            const SizedBox(height: 20.0),
             ProfileInfoWidget(),
+            const SizedBox(height: 20.0),
             DeleteButton(),
             // EntireProfile(),
           ],
