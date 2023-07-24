@@ -2,6 +2,7 @@
 import 'dart:convert';
 
 // 3rd-party Packages
+import 'package:easy_tracker/utils/datetime_util.dart';
 import 'package:firebase_database/firebase_database.dart';
 
 // Local
@@ -151,7 +152,7 @@ class EntryManager{
 
   Future<void> addExp(EntryData newData) async {
     expList.add(newData);
-    sortIncEntries();
+    sortExpEntries();
     await writeExpData();
   }
 
@@ -169,7 +170,7 @@ class EntryManager{
     DateTime n = DateTime.now();
     double incThisMonth = 0.0;
     for (var e in incList) {
-      DateTime eTime = DateTime.fromMillisecondsSinceEpoch(e.timestamp);
+      DateTime eTime = fromSecondsSinceEpoch(e.timestamp);
       if (eTime.month == n.month && eTime.year == n.year) {
         incThisMonth += e.amount;
       }
@@ -181,7 +182,7 @@ class EntryManager{
     DateTime n = DateTime.now();
     double expThisMonth = 0.0;
     for (var e in expList) {
-      DateTime eTime = DateTime.fromMillisecondsSinceEpoch(e.timestamp);
+      DateTime eTime = fromSecondsSinceEpoch(e.timestamp);
       if (eTime.month == n.month && eTime.year == n.year) {
         expThisMonth += e.amount;
       }

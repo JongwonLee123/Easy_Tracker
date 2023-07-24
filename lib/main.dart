@@ -61,6 +61,7 @@ class MainApp extends StatelessWidget {
       },
       theme: ThemeData(
         scaffoldBackgroundColor: bgColor,
+        dividerTheme: dividerTheme,
       ),
     );
   }

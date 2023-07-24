@@ -4,16 +4,12 @@ import "package:flutter_svg/flutter_svg.dart";
 import "package:intl/intl.dart";
 
 // Local
+import 'package:easy_tracker/utils/datetime_util.dart';
 import "package:easy_tracker/utils/themes.dart";
 
 // Card-like Widget displaying income or expense information
 // amount positive -> income, negative -> expense
 // name can be Null but DO NOT DO THAT
-
-String timestampToDate(int timestamp) {
-  DateTime dt = DateTime.fromMillisecondsSinceEpoch(timestamp);
-  return DateFormat('MMM dd, yyyy, h:mma').format(dt);
-}
 
 String formatUSD(double n) {
   return NumberFormat.currency(locale: 'en_US', symbol: '\$').format(n.abs());

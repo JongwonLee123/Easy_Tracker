@@ -4,9 +4,11 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 // Local
 import 'package:easy_tracker/screens/sub_pages/add_edit_page.dart';
+import 'package:easy_tracker/utils/datetime_util.dart';
 import 'package:easy_tracker/utils/entry_data.dart';
 import 'package:easy_tracker/utils/entry_manager.dart';
 import 'package:easy_tracker/utils/themes.dart';
+import 'package:easy_tracker/widgets/blank_snack_bar.dart';
 import 'package:easy_tracker/widgets/confirm_delete_dialog.dart';
 import 'package:easy_tracker/widgets/entry_card.dart';
 
@@ -29,7 +31,7 @@ class _IncomePageState extends State<IncomePage> {
         arguments: AddEditPageArguments(true, eD)
     ) as EntryData;
     if (newData.name != null) {
-      eM.rmvInc(eD.id);
+      await eM.rmvInc(eD.id);
       if (newData.amount.isNegative) {
         newData.amount = -(newData.amount);
         await eM.addExp(newData);
@@ -37,6 +39,7 @@ class _IncomePageState extends State<IncomePage> {
         await eM.addInc(newData);
       }
       if (ctx.mounted) {
+        showBlankSnackBar(ctx, "Data Updated");
         Navigator.of(ctx).pop(newData);
       }
     }
@@ -47,6 +50,7 @@ class _IncomePageState extends State<IncomePage> {
     if (shouldDelete) {
       eM.rmvInc(index);
       if (ctx.mounted) {
+        showBlankSnackBar(ctx, "Data Deleted");
         Navigator.of(ctx).pop();
       }
     }
@@ -105,7 +109,7 @@ class _IncomePageState extends State<IncomePage> {
                         timestampToDate(entry.timestamp),
                         style: bodyNumSmall,
                       ),
-                      const SizedBox(height: 20),
+                      const Divider(),
                       Text(
                         entry.description as String,
                         style: bodyMedium,
@@ -191,7 +195,7 @@ class _IncomePageState extends State<IncomePage> {
             if (wdgList.isEmpty)
               const Text(
                 "No Income Entry!\nTry adding some",
-                style: bodySmall,
+                style: bodyMedium,
               ),
             if (wdgList.isNotEmpty)
               Column(

@@ -102,10 +102,33 @@ class _SignupPageState extends State<SignupPage> {
             const SizedBox(height: 20),
             Container(
               alignment: Alignment.centerLeft,
-              child: const Text(
-                "Please create an account",
-                style: bodyMedium,
-              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    "Please create an account",
+                    style: bodyMedium,
+                  ),
+                  Row(
+                    children: [
+                      const Text(
+                        "Already have an account?",
+                        style: bodySmall,
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          Navigator.pushReplacementNamed(context, "/Login");
+                        },
+                        style: txtBtnTheme,
+                        child: const Text(
+                          "Sign In",
+                          style: bodySmallGreen,
+                        )
+                      ),
+                    ],
+                  )
+                ],
+              )
             ),
             const SizedBox(height: 10),
             Container(

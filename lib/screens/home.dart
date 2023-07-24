@@ -33,11 +33,11 @@ class _HomePageState extends State<HomePage> {
     const int displayLimit = 2;
     if (d.incList.isEmpty) {
       incWdgList.add(const SizedBox(height: 10));
-      incWdgList.add(const Text("No Data", style: bodySmall));
+      incWdgList.add(const Text("No Data", style: bodyMedium));
     }
     if (d.expList.isEmpty) {
       expWdgList.add(const SizedBox(height: 10));
-      expWdgList.add(const Text("No Data", style: bodySmall));
+      expWdgList.add(const Text("No Data", style: bodyMedium));
     }
     int c = 0;
     for (var entry in d.incList) {
@@ -136,7 +136,8 @@ class _HomePageState extends State<HomePage> {
                       income: dataManager.calcIncThisMonth(),
                       expense: dataManager.calcExpThisMonth(),
                     ),
-                    const SizedBox(height: 20),
+                    const SizedBox(height: 10),
+                    const Divider(),
                     Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -173,7 +174,8 @@ class _HomePageState extends State<HomePage> {
                         )
                       ]
                     ),
-                    const SizedBox(height: 20),
+                    const SizedBox(height: 10),
+                    const Divider(),
                     Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.center,

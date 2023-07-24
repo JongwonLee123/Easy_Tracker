@@ -107,10 +107,33 @@ class _LoginPageState extends State<LoginPage> {
             const SizedBox(height: 20),
             Container(
               alignment: Alignment.centerLeft,
-              child: const Text(
-                "Please sign in to continue",
-                style: bodyMedium,
-              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    "Please sign in to continue",
+                    style: bodyMedium,
+                  ),
+                  Row(
+                    children: [
+                      const Text(
+                        "Don't have an account?",
+                        style: bodySmall,
+                      ),
+                      TextButton(
+                          onPressed: () {
+                            Navigator.pushReplacementNamed(context, "/Signup");
+                          },
+                          style: txtBtnTheme,
+                          child: const Text(
+                            "Create One",
+                            style: bodySmallGreen,
+                          )
+                      ),
+                    ],
+                  )
+                ],
+              )
             ),
             const SizedBox(height: 10),
             Container(
@@ -146,7 +169,16 @@ class _LoginPageState extends State<LoginPage> {
                 ],
               ),
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 10),
+            TextButton(
+              onPressed: () {},
+              style: txtBtnTheme,
+              child: const Text(
+                "Forgot Password?",
+                style: bodySmallGreen,
+              )
+            ),
+            const SizedBox(height: 10),
             ElevatedButton(
               onPressed: () async {
                 final user = await signIn(context);

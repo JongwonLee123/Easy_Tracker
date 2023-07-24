@@ -8,10 +8,15 @@ const bgColor = Color(0xFFD0DDD7);
 // cards, appBars, navBars,
 // everything directly on the background
 // will use this.
-const fgWhite = Colors.white70;
+final fgWhite = Colors.white.withOpacity(0.7);
 
 // for buttons and interactive objects
 final btnWhite = Colors.white.withOpacity(0.9);
+
+const dividerTheme = DividerThemeData(
+  space: 20,
+  thickness: 2,
+);
 
 final mainBtnTheme = ElevatedButton.styleFrom(
   elevation: 2,
@@ -78,11 +83,17 @@ const bodySmall = TextStyle(
   fontFamily: 'Quicksand',
   fontWeight: FontWeight.w700,
 );
+const bodySmallGreen = TextStyle(
+  color: Color(0xFF0EA800),
+  fontSize: 16,
+  fontFamily: 'Quicksand',
+  fontWeight: FontWeight.w700,
+);
 const bodySmallRed = TextStyle(
   color: Color(0xFFDD3030),
   fontSize: 16,
   fontFamily: 'Quicksand',
-  fontWeight: FontWeight.w500,
+  fontWeight: FontWeight.w700,
 );
 const bodyNumLarge = TextStyle(
   color: Colors.black,

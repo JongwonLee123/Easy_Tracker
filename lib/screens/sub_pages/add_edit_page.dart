@@ -1,4 +1,5 @@
 // 3rd-party Packages
+import 'package:easy_tracker/utils/datetime_util.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -77,7 +78,7 @@ class _AddPageState extends State<AddPage> {
       nameController = TextEditingController(text: d.name);
       amountController = TextEditingController(text: d.amount.toString());
       descController = TextEditingController(text: d.description);
-      pickedDate = DateTime.fromMillisecondsSinceEpoch(d.timestamp);
+      pickedDate = fromSecondsSinceEpoch(d.timestamp);
       pickedTime = TimeOfDay.fromDateTime(pickedDate);
       pageFunction = "Edit";
     }
@@ -389,7 +390,7 @@ class _AddPageState extends State<AddPage> {
                               id: -1,
                               name: nameController.text.trim(),
                               amount: inc? d: -d,
-                              timestamp: t.millisecondsSinceEpoch,
+                              timestamp: secondsSinceEpoch(t),
                               description: descController.text.trim(),
                             );
                             Navigator.pop(context, returnData);
