@@ -147,7 +147,7 @@ class EntryManager{
     incList.add(newData);
     sortIncEntries();
     await writeIncData();
-}
+  }
 
   Future<void> addExp(EntryData newData) async {
     expList.add(newData);
