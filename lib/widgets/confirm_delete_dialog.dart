@@ -1,9 +1,22 @@
+// 3rd-party Packages
 import 'package:flutter/material.dart';
+
+// Local
 import 'package:easy_tracker/utils/themes.dart';
 
 // this thing returns true or false
-// handle that from outside
+// ===== WARNING =====
+// handle delete from outside
 // this does nothing inside
+
+Future<bool> showConfirmDeleteDialog(BuildContext ctx) async {
+  return await showDialog(
+      context: ctx,
+      builder: (BuildContext context) {
+        return const ConfirmDeleteDialog();
+      }
+  );
+}
 
 class ConfirmDeleteDialog extends StatelessWidget {
   const ConfirmDeleteDialog({super.key});

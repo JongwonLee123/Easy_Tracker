@@ -1,7 +1,10 @@
-import 'package:easy_tracker/utils/entry_data.dart';
+// 3rd-party Packages
 import 'package:flutter/material.dart';
-import 'package:easy_tracker/utils/themes.dart';
 import 'package:intl/intl.dart';
+
+// Local
+import 'package:easy_tracker/utils/entry_data.dart';
+import 'package:easy_tracker/utils/themes.dart';
 
 // inc is used to control the initial state of radio buttons
 // if Add new data, pass in "nullData" as EntryData
@@ -384,10 +387,10 @@ class _AddPageState extends State<AddPage> {
                             );
                             EntryData returnData = EntryData(
                               id: -1,
-                              name: nameController.text,
+                              name: nameController.text.trim(),
                               amount: inc? d: -d,
                               timestamp: t.millisecondsSinceEpoch,
-                              description: descController.text
+                              description: descController.text.trim(),
                             );
                             Navigator.pop(context, returnData);
                           }

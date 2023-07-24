@@ -1,4 +1,7 @@
+// 3rd-party Packages
 import 'package:flutter/material.dart';
+
+// Local
 import 'package:easy_tracker/utils/themes.dart';
 
 // Card on the welcome screen.

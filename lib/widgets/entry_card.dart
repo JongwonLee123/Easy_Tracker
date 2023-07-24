@@ -1,9 +1,14 @@
-import "package:easy_tracker/utils/themes.dart";
+// 3rd-party Packages
 import "package:flutter/material.dart";
-import "package:intl/intl.dart";
 import "package:flutter_svg/flutter_svg.dart";
+import "package:intl/intl.dart";
 
-import "../utils/entry_data.dart";
+// Local
+import "package:easy_tracker/utils/themes.dart";
+
+// Card-like Widget displaying income or expense information
+// amount positive -> income, negative -> expense
+// name can be Null but DO NOT DO THAT
 
 String timestampToDate(int timestamp) {
   DateTime dt = DateTime.fromMillisecondsSinceEpoch(timestamp);
@@ -14,7 +19,7 @@ String formatUSD(double n) {
   return NumberFormat.currency(locale: 'en_US', symbol: '\$').format(n.abs());
 }
 
-class EntryCard extends StatefulWidget {
+class EntryCard extends StatelessWidget {
   final int id;
   final String? name;
   final double amount;
@@ -30,11 +35,6 @@ class EntryCard extends StatefulWidget {
     required this.description
   }): super(key: key);
 
-  @override
-  State<EntryCard> createState() => _EntryCardState();
-}
-
-class _EntryCardState extends State<EntryCard> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -55,7 +55,7 @@ class _EntryCardState extends State<EntryCard> {
               SizedBox(
                 width: MediaQuery.of(context).size.width - 230,
                 child: Text(
-                  widget.name!,
+                  name!,
                   style: bodyMedium,
                   overflow: TextOverflow.ellipsis,
                   maxLines: 1,
@@ -63,7 +63,7 @@ class _EntryCardState extends State<EntryCard> {
                 ),
               ),
               Text(
-                timestampToDate(widget.timestamp),
+                timestampToDate(timestamp),
                 style: bodyNumSmall,
               )
             ]
@@ -75,7 +75,7 @@ class _EntryCardState extends State<EntryCard> {
               SizedBox(
                 width: MediaQuery.of(context).size.width - 200,
                 child: Text(
-                  widget.description!,
+                  description!,
                   style: bodySmall,
                   overflow: TextOverflow.ellipsis,
                   maxLines: 2,
@@ -87,20 +87,20 @@ class _EntryCardState extends State<EntryCard> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    if (widget.amount > 0)
+                    if (amount > 0)
                       SvgPicture.asset(
                         'assets/svg/eva_arrow-up-fill.svg',
                         height: 24,
                         width: 24,
                       ),
-                    if (widget.amount < 0)
+                    if (amount < 0)
                       SvgPicture.asset(
                         'assets/svg/eva_arrow-down-fill.svg',
                         height: 24,
                         width: 24,
                       ),
                     Text(
-                      formatUSD(widget.amount),
+                      formatUSD(amount),
                       style: bodyNumMedium,
                     )
                   ]

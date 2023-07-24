@@ -1,13 +1,22 @@
+// 3rd-party Packages
+import 'package:flutter/material.dart';
+
+// Local
 import 'package:easy_tracker/screens/sub_pages/add_edit_page.dart';
+import 'package:easy_tracker/utils/app_user.dart';
 import 'package:easy_tracker/utils/entry_data.dart';
 import 'package:easy_tracker/utils/entry_manager.dart';
-import 'package:easy_tracker/widgets/entry_card.dart';
 import 'package:easy_tracker/utils/themes.dart';
-import 'package:flutter/material.dart';
+import 'package:easy_tracker/widgets/entry_card.dart';
 import 'package:easy_tracker/widgets/net_card.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage ({Key? key}) : super(key: key);
+  final AppUser appUser;
+
+  const HomePage ({
+    Key? key,
+    required this.appUser
+  }) : super(key: key);
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -20,7 +29,7 @@ class _HomePageState extends State<HomePage> {
   Future<EntryManager> prepareData() async {
     incWdgList = [];
     expWdgList = [];
-    EntryManager d = await EntryManager.create();
+    EntryManager d = await EntryManager.create(widget.appUser.uid);
     const int displayLimit = 2;
     if (d.incList.isEmpty) {
       incWdgList.add(const SizedBox(height: 10));
@@ -109,7 +118,6 @@ class _HomePageState extends State<HomePage> {
                   } else {
                     await dataManager.addInc(returnData);
                   }
-                  await dataManager.loadJson();
                 }
                 setState(() {}); // REFRESHER
               },

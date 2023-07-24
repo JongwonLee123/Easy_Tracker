@@ -1,11 +1,14 @@
+// 3rd-party Packages
+import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+
+// Local
 import 'package:easy_tracker/screens/sub_pages/add_edit_page.dart';
 import 'package:easy_tracker/utils/entry_data.dart';
 import 'package:easy_tracker/utils/entry_manager.dart';
 import 'package:easy_tracker/utils/themes.dart';
 import 'package:easy_tracker/widgets/confirm_delete_dialog.dart';
 import 'package:easy_tracker/widgets/entry_card.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 class ExpensePage extends StatefulWidget {
   final EntryManager entryManager;
@@ -33,7 +36,6 @@ class _ExpensePageState extends State<ExpensePage> {
       } else {
         await eM.addInc(newData);
       }
-      await eM.loadJson();
       if (ctx.mounted) {
         Navigator.of(ctx).pop();
       }
@@ -41,12 +43,7 @@ class _ExpensePageState extends State<ExpensePage> {
   }
 
   Future<void> delExpData(BuildContext ctx, int index, EntryManager eM) async {
-    bool shouldDelete = await showDialog(
-      context: ctx,
-      builder: (BuildContext context) {
-        return const ConfirmDeleteDialog();
-      }
-    );
+    bool shouldDelete = await showConfirmDeleteDialog(ctx);
     if (shouldDelete) {
       eM.rmvExp(index);
       if (ctx.mounted) {

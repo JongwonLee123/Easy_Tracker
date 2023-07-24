@@ -1,7 +1,14 @@
-import "package:easy_tracker/utils/themes.dart";
+// 3rd-party Packages
 import "package:flutter/material.dart";
-import "package:intl/intl.dart";
 import "package:flutter_svg/flutter_svg.dart";
+import "package:intl/intl.dart";
+
+// Local
+import "package:easy_tracker/utils/themes.dart";
+
+// Card-like Widget at the top of main home page
+// displays Net income of the current Month
+// current Month is detected by DateTime.now()
 
 String getDateRange() {
   DateTime now = DateTime.now();

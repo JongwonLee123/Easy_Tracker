@@ -1,5 +1,8 @@
-import 'package:easy_tracker/utils/themes.dart';
+// 3rd-party Packages
 import 'package:flutter/material.dart';
+
+// Local
+import 'package:easy_tracker/utils/themes.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);

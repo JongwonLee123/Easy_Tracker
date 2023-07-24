@@ -1,3 +1,7 @@
+// This class contains necessary functions
+// fromJson() and toJson() used to read and write
+// to and from the Database
+
 class EntryData{
   int id = -1;
   String? name;
@@ -14,18 +18,18 @@ class EntryData{
   });
 
   EntryData.fromJson(Map<String, dynamic> json) {
-    name = json["name"];
-    amount = json["amount"];
-    timestamp = json["timestamp"];
-    description = json["description"];
+    name = json["n"];
+    amount = json["a"];
+    timestamp = json["t"];
+    description = json["d"];
   }
 
   Map<String, dynamic> toJson() {
     return {
-      "name": name,
-      "amount": amount,
-      "timestamp": timestamp,
-      "description": description
+      "n": name,
+      "a": amount,
+      "t": timestamp,
+      "d": description
     };
   }
 }

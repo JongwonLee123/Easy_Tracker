@@ -1,6 +1,8 @@
-import 'package:easy_tracker/utils/themes.dart';
+// 3rd-party Packages
 import 'package:flutter/material.dart';
-import 'package:easy_tracker/screens/main_page.dart';
+
+// Local
+import 'package:easy_tracker/utils/themes.dart';
 import 'package:easy_tracker/widgets/welcome_card.dart';
 
 // upon pressing start button, it will navigate to screens/main_page.dart
@@ -23,30 +25,23 @@ class WelcomePage extends StatelessWidget {
             const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
-                Navigator.pushReplacementNamed(
-                    context,
-                    "/Main"
-                    /*PageRouteBuilder(
-                      pageBuilder: (context, ani, ani2) => const MainPage(),
-                      transitionsBuilder: (context, ani, ani2, child) {
-                        const begin = Offset(1.0, 0.0);
-                        const end = Offset.zero;
-                        const curve = Curves.easeInOut;
-
-                        var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
-
-                        return SlideTransition(
-                          position: ani.drive(tween),
-                          child: child,
-                        );
-                      },
-                    )*/
-                    //MaterialPageRoute(builder: (context) => const MainPage())
-                );
+                Navigator.of(context).pushNamed("/Login");
               },
               style: mainBtnTheme,
               child: const Text(
-                'Start',
+                'Sign In',
+                textAlign: TextAlign.center,
+                style: bodyMedium,
+              ),
+            ),
+            const SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.of(context).pushNamed("/Signup");
+              },
+              style: mainBtnTheme,
+              child: const Text(
+                'Create Account',
                 textAlign: TextAlign.center,
                 style: bodyMedium,
               ),

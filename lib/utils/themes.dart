@@ -1,4 +1,7 @@
+// 3rd-party Packages
 import 'package:flutter/material.dart';
+
+// DESIGNS, THEMES, DECORATION, TEXT, ETC.
 
 const bgColor = Color(0xFFD0DDD7);
 
