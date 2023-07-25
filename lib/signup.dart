@@ -84,115 +84,108 @@ class _SignupPageState extends State<SignupPage> {
           color: Colors.black,
         ),
       ),
-      body: Container(
-        width: double.infinity,
-        height: double.infinity,
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Container(
-              alignment: Alignment.centerLeft,
-              child: const Text(
-                "Create Account",
-                style: bodyLarge,
-              ),
-            ),
-            const SizedBox(height: 20),
-            Container(
-              alignment: Alignment.centerLeft,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    "Please create an account",
-                    style: bodyMedium,
+      body: Center(
+        child: SingleChildScrollView(
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Container(
+                  alignment: Alignment.centerLeft,
+                  child: const Text(
+                    "Create Account",
+                    style: bodyLarge,
                   ),
-                  Row(
+                ),
+                const SizedBox(height: 20),
+                Container(
+                  alignment: Alignment.centerLeft,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const Text(
-                        "Already have an account?",
-                        style: bodySmall,
+                        "Please create an account",
+                        style: bodyMedium,
                       ),
-                      TextButton(
-                        onPressed: () {
-                          Navigator.pushReplacementNamed(context, "/Login");
-                        },
-                        style: txtBtnTheme,
-                        child: const Text(
-                          "Sign In",
-                          style: bodySmallGreen,
+                      Row(
+                        children: [
+                          const Text(
+                            "Already have an account?",
+                            style: bodySmall,
+                          ),
+                          TextButton(
+                            onPressed: () {
+                              Navigator.pushReplacementNamed(context, "/Login");
+                            },
+                            style: txtBtnTheme,
+                            child: const Text(
+                              "Sign In",
+                              style: bodySmallGreen,
+                            )
+                          ),
+                        ],
+                      )
+                    ],
+                  )
+                ),
+                const SizedBox(height: 10),
+                Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.all(10),
+                  decoration: ShapeDecoration(
+                    color: fgWhite,
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                    shadows: const [generalShadow],
+                  ),
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        child: TextField(
+                          controller: emailController,
+                          decoration: customInputDecoWithLabel("Email")
+                        )
+                      ),
+                      const SizedBox(height: 10),
+                      SizedBox(
+                        child: TextField(
+                          controller: passwordController,
+                          obscureText: true,
+                          decoration: customInputDecoWithLabel("Password")
+                        )
+                      ),
+                      const SizedBox(height: 10),
+                      SizedBox(
+                        child: TextField(
+                          controller: confirmController,
+                          obscureText: true,
+                          decoration: customInputDecoWithLabel("Confirm Password")
                         )
                       ),
                     ],
-                  )
-                ],
-              )
-            ),
-            const SizedBox(height: 10),
-            Container(
-              width: double.infinity,
-              padding: const EdgeInsets.all(10),
-              decoration: ShapeDecoration(
-                color: fgWhite,
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                shadows: const [generalShadow],
-              ),
-              child: Column(
-                children: [
-                  SizedBox(
-                    child: TextField(
-                      controller: emailController,
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: "Email",
-                      ),
-                    )
                   ),
-                  const SizedBox(height: 10),
-                  SizedBox(
-                    child: TextFormField(
-                      controller: passwordController,
-                      obscureText: true,
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: "Password",
-                      ),
-                    )
+                ),
+                const SizedBox(height: 20),
+                ElevatedButton(
+                  onPressed: () async {
+                    bool pop = await signUp(context);
+                    if (pop && context.mounted) {
+                      Navigator.of(context).popUntil(ModalRoute.withName("/"));
+                    }
+                  },
+                  style: mainBtnTheme,
+                  child: const Text(
+                    'Sign Up',
+                    textAlign: TextAlign.center,
+                    style: bodyMedium,
                   ),
-                  const SizedBox(height: 10),
-                  SizedBox(
-                    child: TextFormField(
-                      controller: confirmController,
-                      obscureText: true,
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: "Confirm Password",
-                      ),
-                    )
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
-            const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () async {
-                bool pop = await signUp(context);
-                if (pop && context.mounted) {
-                  Navigator.of(context).popUntil(ModalRoute.withName("/"));
-                }
-              },
-              style: mainBtnTheme,
-              child: const Text(
-                'Sign Up',
-                textAlign: TextAlign.center,
-                style: bodyMedium,
-              ),
-            ),
-          ],
+          ),
         ),
-      ),
+      )
     );
   }
 }

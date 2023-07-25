@@ -28,14 +28,11 @@ class _LoginPageState extends State<LoginPage> {
 
   Future<User?> signIn(BuildContext ctx) async {
     showDialog(
-      context: ctx,
-      barrierDismissible: false,
-      builder: (BuildContext ctx) {
-        return const Center(
-            child: CircularProgressIndicator()
-        );
-      }
-    );
+        context: ctx,
+        barrierDismissible: false,
+        builder: (BuildContext ctx) {
+          return const Center(child: CircularProgressIndicator());
+        });
 
     User? user;
     try {
@@ -46,13 +43,11 @@ class _LoginPageState extends State<LoginPage> {
       );
       user = uC.user;
       if (user != null) {
-        DatabaseReference ref = FirebaseDatabase.instance.ref("users/${user.uid}");
+        DatabaseReference ref =
+          FirebaseDatabase.instance.ref("users/${user.uid}");
         final snapshot = await ref.get();
         if (!(snapshot.exists)) {
-          await ref.set({
-            "name": user.displayName,
-            "email": user.email
-          });
+          await ref.set({"name": user.displayName, "email": user.email});
         }
         if (ctx.mounted) {
           Navigator.of(ctx).pushReplacementNamed("/Main");
@@ -62,7 +57,9 @@ class _LoginPageState extends State<LoginPage> {
       await showSimpleDialog(ctx, e.message.toString());
     }
 
-    if (ctx.mounted) {Navigator.of(ctx).pop();}
+    if (ctx.mounted) {
+      Navigator.of(ctx).pop();
+    }
     return user;
   }
 
@@ -89,121 +86,113 @@ class _LoginPageState extends State<LoginPage> {
           color: Colors.black,
         ),
       ),
-      body: Container(
-        width: double.infinity,
-        height: double.infinity,
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Container(
-              alignment: Alignment.centerLeft,
-              child: const Text(
-                "Sign In",
-                style: bodyLarge,
-              ),
-            ),
-            const SizedBox(height: 20),
-            Container(
-              alignment: Alignment.centerLeft,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    "Please sign in to continue",
-                    style: bodyMedium,
+      body: Center(
+        child: SingleChildScrollView(
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Container(
+                  alignment: Alignment.centerLeft,
+                  child: const Text(
+                    "Sign In",
+                    style: bodyLarge,
                   ),
-                  Row(
+                ),
+                const SizedBox(height: 20),
+                Container(
+                  alignment: Alignment.centerLeft,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const Text(
-                        "Don't have an account?",
-                        style: bodySmall,
+                        "Please sign in to continue",
+                        style: bodyMedium,
                       ),
-                      TextButton(
-                          onPressed: () {
-                            Navigator.pushReplacementNamed(context, "/Signup");
-                          },
-                          style: txtBtnTheme,
-                          child: const Text(
-                            "Create One",
-                            style: bodySmallGreen,
-                          )
-                      ),
+                      Row(
+                        children: [
+                          const Text(
+                            "Don't have an account?",
+                            style: bodySmall,
+                          ),
+                          TextButton(
+                            onPressed: () {
+                              Navigator.pushReplacementNamed(
+                                context, "/Signup");
+                            },
+                            style: txtBtnTheme,
+                            child: const Text(
+                              "Create One",
+                              style: bodySmallGreen,
+                            )
+                          ),
+                        ],
+                      )
                     ],
                   )
-                ],
-              )
-            ),
-            const SizedBox(height: 10),
-            Container(
-              width: double.infinity,
-              padding: const EdgeInsets.all(10),
-              decoration: ShapeDecoration(
-                color: fgWhite,
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                shadows: const [generalShadow],
-              ),
-              child: Column(
-                children: [
-                  SizedBox(
-                    child: TextField(
-                      controller: emailController,
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: "Email",
-                      ),
-                    )
+                ),
+                const SizedBox(height: 10),
+                Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.all(10),
+                  decoration: ShapeDecoration(
+                    color: fgWhite,
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                    shadows: const [generalShadow],
                   ),
-                  const SizedBox(height: 10),
-                  SizedBox(
-                    child: TextFormField(
-                      controller: passwordController,
-                      obscureText: true,
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: "Password",
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        child: TextField(
+                          controller: emailController,
+                          decoration: customInputDecoWithLabel("Email")
+                        )
                       ),
-                    )
+                      const SizedBox(height: 10),
+                      SizedBox(
+                        child: TextField(
+                          controller: passwordController,
+                          obscureText: true,
+                          decoration: customInputDecoWithLabel("Password")
+                        )
+                      ),
+                    ],
                   ),
-                ],
-              ),
+                ),
+                const SizedBox(height: 10),
+                TextButton(
+                  onPressed: () {},
+                  style: txtBtnTheme,
+                  child: const Text(
+                    "Forgot Password?",
+                    style: bodySmallGreen,
+                  )
+                ),
+                const SizedBox(height: 10),
+                ElevatedButton(
+                  onPressed: () async {
+                    final user = await signIn(context);
+                    if (user != null && context.mounted) {
+                      AppUser u = AppUser(
+                        user.uid.toString(),
+                        user.displayName.toString(), user.email.toString());
+                      Navigator.of(context).pushReplacementNamed("/Main", arguments: u);
+                    }
+                  },
+                  style: mainBtnTheme,
+                  child: const Text(
+                    'Sign In',
+                    textAlign: TextAlign.center,
+                    style: bodyMedium,
+                  ),
+                ),
+              ],
             ),
-            const SizedBox(height: 10),
-            TextButton(
-              onPressed: () {},
-              style: txtBtnTheme,
-              child: const Text(
-                "Forgot Password?",
-                style: bodySmallGreen,
-              )
-            ),
-            const SizedBox(height: 10),
-            ElevatedButton(
-              onPressed: () async {
-                final user = await signIn(context);
-                if (user != null && context.mounted) {
-                  AppUser u = AppUser(
-                    user.uid.toString(),
-                    user.displayName.toString(),
-                    user.email.toString()
-                  );
-                  Navigator.of(context).pushReplacementNamed(
-                    "/Main",
-                    arguments: u
-                  );
-                }
-              },
-              style: mainBtnTheme,
-              child: const Text(
-                'Sign In',
-                textAlign: TextAlign.center,
-                style: bodyMedium,
-              ),
-            ),
-          ],
+          ),
         ),
-      ),
+      )
     );
   }
 }

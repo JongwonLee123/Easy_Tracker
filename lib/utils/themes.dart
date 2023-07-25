@@ -26,7 +26,6 @@ final mainBtnTheme = ElevatedButton.styleFrom(
     borderRadius: BorderRadius.circular(25),
   )
 );
-
 final btnWhiteTheme = ElevatedButton.styleFrom(
   elevation: 2,
   backgroundColor: btnWhite,
@@ -49,8 +48,65 @@ final btnRedTheme = ElevatedButton.styleFrom(
   )
 );
 final txtBtnTheme = TextButton.styleFrom(
+  foregroundColor: Colors.black12,
   padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 4),
 );
+
+InputDecoration customInputDecoWithLabel(String s) {
+  return InputDecoration(
+    focusedBorder: const OutlineInputBorder(
+      borderSide: BorderSide(
+        color: bgColor,
+        width: 3
+      )
+    ),
+    enabledBorder: const OutlineInputBorder(
+      borderSide: BorderSide(
+        color: Colors.black12,
+        width: 1
+      )
+    ),
+    labelText: s,
+    labelStyle: bodySmallFaded,
+    floatingLabelStyle: bodySmallGreen,
+  );
+}
+
+InputDecoration customInputDecoWithHint(String s) {
+  return InputDecoration(
+    focusedBorder: const OutlineInputBorder(
+      borderSide: BorderSide(
+        color: bgColor,
+        width: 3
+      )
+    ),
+    enabledBorder: const OutlineInputBorder(
+      borderSide: BorderSide(
+        color: Colors.black12,
+        width: 1
+      )
+    ),
+    hintText: s,
+    hintStyle: bodySmallFaded,
+  );
+}
+
+// when Hero widget is making transition animations,
+// the inner widget will be "mid-flight" which is outside
+// of scaffolds which will make yellow underlines appear
+// Use this in Hero widgets to prevent that behavior
+Widget flightShuttleBuilder(
+  BuildContext flightContext,
+  Animation<double> animation,
+  HeroFlightDirection flightDirection,
+  BuildContext fromHeroContext,
+  BuildContext toHeroContext,
+) {
+  return DefaultTextStyle(
+    style: DefaultTextStyle.of(toHeroContext).style,
+    child: toHeroContext.widget,
+  );
+}
 
 const generalShadow = BoxShadow(
   color: Color(0x3F000000),
@@ -79,6 +135,12 @@ const bodyMedium = TextStyle(
 );
 const bodySmall = TextStyle(
   color: Colors.black,
+  fontSize: 16,
+  fontFamily: 'Quicksand',
+  fontWeight: FontWeight.w700,
+);
+const bodySmallFaded = TextStyle(
+  color: Colors.black54,
   fontSize: 16,
   fontFamily: 'Quicksand',
   fontWeight: FontWeight.w700,

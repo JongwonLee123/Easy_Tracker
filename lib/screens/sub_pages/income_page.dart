@@ -160,12 +160,16 @@ class _IncomePageState extends State<IncomePage> {
               )
             );
           },
-          child: EntryCard(
-            id: index,
-            name: entry.name!,
-            amount: entry.amount,
-            timestamp: entry.timestamp,
-            description: entry.description!
+          child: Hero(
+            tag: "inc_${index+1}",
+            flightShuttleBuilder: flightShuttleBuilder,
+            child: EntryCard(
+              id: index,
+              name: entry.name!,
+              amount: entry.amount,
+              timestamp: entry.timestamp,
+              description: entry.description!
+            ),
           ),
         )
       );

@@ -44,12 +44,16 @@ class _HomePageState extends State<HomePage> {
       if (c++ >= displayLimit) {break;}
       incWdgList.add(const SizedBox(height: 10));
       incWdgList.add(
-        EntryCard(
-          id: c - 1,
-          name: entry.name!,
-          amount: entry.amount,
-          timestamp: entry.timestamp,
-          description: entry.description!
+        Hero(
+          tag: "inc_$c",
+          flightShuttleBuilder: flightShuttleBuilder,
+          child: EntryCard(
+            id: c - 1,
+            name: entry.name!,
+            amount: entry.amount,
+            timestamp: entry.timestamp,
+            description: entry.description!
+          )
         )
       );
     }
@@ -58,12 +62,16 @@ class _HomePageState extends State<HomePage> {
       if (c++ >= displayLimit) {break;}
       expWdgList.add(const SizedBox(height: 10));
       expWdgList.add(
-        EntryCard(
-          id: c - 1,
-          name: entry.name!,
-          amount: -(entry.amount),
-          timestamp: entry.timestamp,
-          description: entry.description!
+        Hero(
+          tag: "exp_$c",
+          flightShuttleBuilder: flightShuttleBuilder,
+          child: EntryCard(
+            id: c - 1,
+            name: entry.name!,
+            amount: -(entry.amount),
+            timestamp: entry.timestamp,
+            description: entry.description!
+          )
         )
       );
     }

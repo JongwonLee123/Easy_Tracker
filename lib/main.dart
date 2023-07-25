@@ -48,7 +48,7 @@ class MainApp extends StatelessWidget {
         "/Profile": (context) => const ProfilePage(),
         "/AddEditEntry": (context) {
           final AddEditPageArguments d = ModalRoute.of(context)?.settings.arguments as AddEditPageArguments;
-          return AddPage(addPageArguments: d);
+          return AddEditPage(addPageArguments: d);
         },
         "/Expense": (context) {
           final EntryManager d = ModalRoute.of(context)?.settings.arguments as EntryManager;

@@ -21,19 +21,19 @@ class AddEditPageArguments {
   }
 }
 
-class AddPage extends StatefulWidget {
+class AddEditPage extends StatefulWidget {
   final AddEditPageArguments addPageArguments;
 
-  const AddPage({
+  const AddEditPage({
     Key? key,
     required this.addPageArguments
   }): super(key: key);
 
   @override
-  State<AddPage> createState() => _AddPageState();
+  State<AddEditPage> createState() => _AddEditPageState();
 }
 
-class _AddPageState extends State<AddPage> {
+class _AddEditPageState extends State<AddEditPage> {
   late AddEditPageArguments addPageArguments;
   String pageFunction = "Add";
 
@@ -99,28 +99,28 @@ class _AddPageState extends State<AddPage> {
         return false;
       },
       child: Scaffold(
-      appBar: AppBar(
-        title: Text(
-          "$pageFunction Entry",
-          style: bodyMedium,
+        appBar: AppBar(
+          title: Text(
+            "$pageFunction Entry",
+            style: bodyMedium,
+          ),
+          backgroundColor: fgWhite,
+          leading: BackButton(
+            onPressed: () {
+              EntryData nullData = EntryData(
+                id: -1,
+                amount: 0,
+                timestamp: 0,
+              );
+              Navigator.pop(context, nullData);
+            },
+            color: Colors.black,
+          ),
         ),
-        backgroundColor: fgWhite,
-        leading: BackButton(
-          onPressed: () {
-            EntryData nullData = EntryData(
-              id: -1,
-              amount: 0,
-              timestamp: 0,
-            );
-            Navigator.pop(context, nullData);
-          },
-          color: Colors.black,
-        ),
-      ),
-      body: SingleChildScrollView(
-        clipBehavior: Clip.none,
-        child: Center(
-          child: Padding(
+        body: Center(
+          child: SingleChildScrollView(
+            clipBehavior: Clip.none,
+            child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -200,10 +200,7 @@ class _AddPageState extends State<AddPage> {
                         SizedBox(
                           child: TextField(
                             controller: nameController,
-                            decoration: const InputDecoration(
-                              border: OutlineInputBorder(),
-                              hintText: "Enter Name",
-                            ),
+                            decoration: customInputDecoWithHint("Enter Name")
                           )
                         ),
                         // AMOUNT INPUT FIELD
@@ -219,10 +216,7 @@ class _AddPageState extends State<AddPage> {
                           child: TextField(
                             keyboardType: TextInputType.number,
                             controller: amountController,
-                            decoration: const InputDecoration(
-                              border: OutlineInputBorder(),
-                              hintText: "Enter Amount",
-                            ),
+                            decoration: customInputDecoWithHint("Enter Amount")
                           )
                         ),
                         // DATE TIME INPUT FIELD
@@ -239,25 +233,25 @@ class _AddPageState extends State<AddPage> {
                             final parentWidth = constraints.maxWidth;
                             return Row(
                               children: [
-                                // DATE LEFT BOX
+                                  // DATE LEFT BOX
                                 SizedBox(
-                                  width: parentWidth * 0.5 - 4,
-                                  height: 50,
-                                  child: ElevatedButton(
-                                    onPressed: () async {
-                                      final newDate = await pickDate();
-                                      if (newDate != null) {
-                                        setState(() {
-                                          pickedDate = newDate;
-                                        });
-                                      }
-                                    },
-                                    style: btnWhiteTheme,
-                                    child: Text(
-                                      DateFormat("MMM dd, yyyy").format(pickedDate),
-                                      style: bodyNumMedium,
-                                    ),
-                                  )
+                                    width: parentWidth * 0.5 - 4,
+                                    height: 50,
+                                    child: ElevatedButton(
+                                      onPressed: () async {
+                                        final newDate = await pickDate();
+                                        if (newDate != null) {
+                                          setState(() {
+                                            pickedDate = newDate;
+                                          });
+                                        }
+                                      },
+                                      style: btnWhiteTheme,
+                                      child: Text(
+                                        DateFormat("MMM dd, yyyy").format(pickedDate),
+                                        style: bodyNumMedium,
+                                      ),
+                                    )
                                 ),
                                 const SizedBox(width: 8),
                                 // TIME RIGHT BOX
@@ -304,10 +298,7 @@ class _AddPageState extends State<AddPage> {
                         SizedBox(
                           child: TextField(
                             controller: descController,
-                            decoration: const InputDecoration(
-                              border: OutlineInputBorder(),
-                              hintText: "Enter Description",
-                            ),
+                            decoration: customInputDecoWithHint("Enter Description")
                           )
                         ),
                       ],
@@ -352,7 +343,7 @@ class _AddPageState extends State<AddPage> {
                                           style: bodyMedium
                                         ),
                                       if (a.isEmpty)
-                                       const Text(
+                                        const Text(
                                           "Amount can't be empty!",
                                           style: bodyMedium
                                         ),
@@ -380,11 +371,11 @@ class _AddPageState extends State<AddPage> {
                             );
                           } else {
                             DateTime t = DateTime(
-                                pickedDate.year,
-                                pickedDate.month,
-                                pickedDate.day,
-                                pickedTime.hour,
-                                pickedTime.minute
+                              pickedDate.year,
+                              pickedDate.month,
+                              pickedDate.day,
+                              pickedTime.hour,
+                              pickedTime.minute
                             );
                             EntryData returnData = EntryData(
                               id: -1,
@@ -407,10 +398,10 @@ class _AddPageState extends State<AddPage> {
                   )
                 ],
               )
+            )
           ),
         )
-      )
-    ),
+      ),
     );
   }
 }
