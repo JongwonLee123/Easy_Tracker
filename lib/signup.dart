@@ -28,8 +28,18 @@ class _SignupPageState extends State<SignupPage> {
     String eml = emailController.text.trim();
     String psd = passwordController.text.trim();
     String confirmPsd = confirmController.text.trim();
+
+    // protections
+    if (eml.isEmpty) {
+      await showSimpleDialog(ctx, "Please enter your Email.");
+      return false;
+    }
+    if (psd.isEmpty) {
+      await showSimpleDialog(ctx, "Please enter password.");
+      return false;
+    }
     if (psd != confirmPsd) {
-      await showSimpleDialog(ctx, "Passwords do not match!");
+      await showSimpleDialog(ctx, "Passwords do not match.");
       return false;
     }
 
@@ -117,7 +127,10 @@ class _SignupPageState extends State<SignupPage> {
                           ),
                           TextButton(
                             onPressed: () {
-                              Navigator.pushReplacementNamed(context, "/Login");
+                              Navigator.pushReplacementNamed(
+                                context,
+                                "/Login"
+                              );
                             },
                             style: txtBtnTheme,
                             child: const Text(
@@ -135,7 +148,7 @@ class _SignupPageState extends State<SignupPage> {
                   width: double.infinity,
                   padding: const EdgeInsets.all(10),
                   decoration: ShapeDecoration(
-                    color: fgWhite,
+                    color: fgWhiteTransparent,
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
                     shadows: const [generalShadow],
                   ),

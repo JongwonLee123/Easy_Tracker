@@ -138,7 +138,7 @@ class _AddEditPageState extends State<AddEditPage> {
                     width: double.infinity,
                     padding: const EdgeInsets.all(10),
                     decoration: ShapeDecoration(
-                      color: fgWhite,
+                      color: fgWhiteTransparent,
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
                       shadows: const [generalShadow],
                     ),

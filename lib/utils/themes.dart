@@ -5,18 +5,28 @@ import 'package:flutter/material.dart';
 
 const bgColor = Color(0xFFD0DDD7);
 
-// cards, appBars, navBars,
 // everything directly on the background
 // will use this.
-final fgWhite = Colors.white.withOpacity(0.7);
+final fgWhiteTransparent = const Color(0xFFF9FFFC).withOpacity(0.8);
+const fgWhite = Color(0xFFF9FFFC);
 
 // for buttons and interactive objects
-final btnWhite = Colors.white.withOpacity(0.9);
+final btnWhite = const Color(0xFFF9FFFC).withOpacity(0.9);
+
+const mainGradient = LinearGradient(
+  begin: Alignment(0.71, -0.71),
+  end: Alignment(-0.71, 0.71),
+  colors: [Color(0xFFB2D3C2), Color(0xFFEBEBEB)],
+);
+
+// ===== ===== ===== ===== =====
 
 const dividerTheme = DividerThemeData(
   space: 20,
   thickness: 2,
 );
+
+// ===== ===== ===== ===== =====
 
 final mainBtnTheme = ElevatedButton.styleFrom(
   elevation: 2,
@@ -51,6 +61,8 @@ final txtBtnTheme = TextButton.styleFrom(
   foregroundColor: Colors.black12,
   padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 4),
 );
+
+// ===== ===== ===== ===== =====
 
 InputDecoration customInputDecoWithLabel(String s) {
   return InputDecoration(
@@ -91,6 +103,8 @@ InputDecoration customInputDecoWithHint(String s) {
   );
 }
 
+// ===== ===== ===== ===== =====
+
 // when Hero widget is making transition animations,
 // the inner widget will be "mid-flight" which is outside
 // of scaffolds which will make yellow underlines appear
@@ -108,6 +122,8 @@ Widget flightShuttleBuilder(
   );
 }
 
+// ===== ===== ===== ===== =====
+
 const generalShadow = BoxShadow(
   color: Color(0x3F000000),
   blurRadius: 4,
@@ -115,11 +131,7 @@ const generalShadow = BoxShadow(
   spreadRadius: 0,
 );
 
-const mainGradient = LinearGradient(
-  begin: Alignment(0.71, -0.71),
-  end: Alignment(-0.71, 0.71),
-  colors: [Color(0xFFB2D3C2), Color(0xFFEBEBEB)],
-);
+// ===== ===== ===== ===== =====
 
 const bodyLarge = TextStyle(
   color: Colors.black,

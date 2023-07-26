@@ -25,12 +25,14 @@ class IncomePage extends StatefulWidget {
 }
 
 class _IncomePageState extends State<IncomePage> {
+  bool changed = false;
+
   Future<void> editIncData(BuildContext ctx, EntryData eD, EntryManager eM) async {
     EntryData newData = await Navigator.of(ctx).pushNamed(
         "/AddEditEntry",
         arguments: AddEditPageArguments(true, eD)
     ) as EntryData;
-    if (newData.name != null) {
+    if (newData.name != null && newData != eM.incList[eD.id]) {
       await eM.rmvInc(eD.id);
       if (newData.amount.isNegative) {
         newData.amount = -(newData.amount);
@@ -38,6 +40,7 @@ class _IncomePageState extends State<IncomePage> {
       } else {
         await eM.addInc(newData);
       }
+      changed = true;
       if (ctx.mounted) {
         showBlankSnackBar(ctx, "Data Updated");
         Navigator.of(ctx).pop(newData);
@@ -49,6 +52,7 @@ class _IncomePageState extends State<IncomePage> {
     bool shouldDelete = await showConfirmDeleteDialog(ctx);
     if (shouldDelete) {
       eM.rmvInc(index);
+      changed = true;
       if (ctx.mounted) {
         showBlankSnackBar(ctx, "Data Deleted");
         Navigator.of(ctx).pop();
@@ -59,7 +63,7 @@ class _IncomePageState extends State<IncomePage> {
   @override
   Widget build(BuildContext context) {
     // extract arguments
-    EntryManager data = ModalRoute.of(context)!.settings.arguments as EntryManager;
+    EntryManager data = widget.entryManager;
 
     int index = 0;
     List<Widget> wdgList = [];
@@ -176,38 +180,44 @@ class _IncomePageState extends State<IncomePage> {
       index++;
     }
 
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          "Income",
-          style: bodyMedium,
+    return WillPopScope(
+      onWillPop: () async {
+        Navigator.of(context).pop(changed);
+        return false; // disable default back behavior
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text(
+            "Income",
+            style: bodyMedium,
+          ),
+          backgroundColor: fgWhite,
+          leading: BackButton(
+            onPressed: () {
+              Navigator.pop(context, changed);
+            },
+            color: Colors.black,
+          ),
         ),
-        backgroundColor: fgWhite,
-        leading: BackButton(
-          onPressed: () {
-            Navigator.pop(context, true);
-          },
-          color: Colors.black,
-        ),
-      ),
-      body: Container(
-        width: double.infinity,
-        height: double.infinity,
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-        child: Column(
-          children: [
-            if (wdgList.isEmpty)
-              const Text(
-                "No Income Entry!\nTry adding some",
-                style: bodyMedium,
-              ),
-            if (wdgList.isNotEmpty)
-              Column(
-                children: wdgList,
-              ),
-          ],
+        body: Container(
+          width: double.infinity,
+          height: double.infinity,
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+          child: Column(
+            children: [
+              if (wdgList.isEmpty)
+                const Text(
+                  "No Income Entry!\nTry adding some",
+                  style: bodyMedium,
+                ),
+              if (wdgList.isNotEmpty)
+                Column(
+                  children: wdgList,
+                ),
+            ],
+          )
         )
-      )
+      ),
     );
   }
 }

@@ -25,12 +25,14 @@ class ExpensePage extends StatefulWidget {
 }
 
 class _ExpensePageState extends State<ExpensePage> {
+  bool changed = false;
+
   Future<void> editExpData(BuildContext ctx, EntryData eD, EntryManager eM) async {
     EntryData newData = await Navigator.of(ctx).pushNamed(
         "/AddEditEntry",
         arguments: AddEditPageArguments(false, eD)
     ) as EntryData;
-    if (newData.name != null) {
+    if (newData.name != null && newData != eM.incList[eD.id]) {
       await eM.rmvExp(eD.id);
       if (newData.amount.isNegative) {
         newData.amount = -(newData.amount);
@@ -38,6 +40,7 @@ class _ExpensePageState extends State<ExpensePage> {
       } else {
         await eM.addInc(newData);
       }
+      changed = true;
       if (ctx.mounted) {
         showBlankSnackBar(ctx, "Data Updated");
         Navigator.of(ctx).pop();
@@ -49,6 +52,7 @@ class _ExpensePageState extends State<ExpensePage> {
     bool shouldDelete = await showConfirmDeleteDialog(ctx);
     if (shouldDelete) {
       eM.rmvExp(index);
+      changed = true;
       if (ctx.mounted) {
         showBlankSnackBar(ctx, "Data Deleted");
         Navigator.of(ctx).pop();
@@ -59,7 +63,7 @@ class _ExpensePageState extends State<ExpensePage> {
   @override
   Widget build(BuildContext context) {
     // extract arguments
-    EntryManager data = ModalRoute.of(context)!.settings.arguments as EntryManager;
+    EntryManager data = widget.entryManager;
 
     int index = 0;
     List<Widget> wdgList = [];
@@ -176,38 +180,44 @@ class _ExpensePageState extends State<ExpensePage> {
       index++;
     }
 
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          "Expenses",
-          style: bodyMedium,
+    return WillPopScope(
+      onWillPop: () async {
+        Navigator.of(context).pop(changed);
+        return false; // disable default back behavior
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text(
+            "Expenses",
+            style: bodyMedium,
+          ),
+          backgroundColor: fgWhite,
+          leading: BackButton(
+            onPressed: () {
+              Navigator.pop(context, changed);
+            },
+            color: Colors.black,
+          ),
         ),
-        backgroundColor: fgWhite,
-        leading: BackButton(
-          onPressed: () {
-            Navigator.pop(context, true);
-          },
-          color: Colors.black,
-        ),
-      ),
-      body: Container(
-        width: double.infinity,
-        height: double.infinity,
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-        child: Column(
-          children: [
-            if (wdgList.isEmpty)
-              const Text(
-                "No Expense Entry!\nTry adding some",
-                style: bodyMedium,
-              ),
-            if (wdgList.isNotEmpty)
-              Column(
-                children: wdgList,
-              ),
-          ],
+        body: Container(
+          width: double.infinity,
+          height: double.infinity,
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+          child: Column(
+            children: [
+              if (wdgList.isEmpty)
+                const Text(
+                  "No Expense Entry!\nTry adding some",
+                  style: bodyMedium,
+                ),
+              if (wdgList.isNotEmpty)
+                Column(
+                  children: wdgList,
+                ),
+            ],
+          )
         )
-      )
+      ),
     );
   }
 }

@@ -30,7 +30,6 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return MaterialApp(
       initialRoute: "/",
       routes: {
@@ -45,7 +44,10 @@ class MainApp extends StatelessWidget {
           final AppUser d = ModalRoute.of(context)?.settings.arguments as AppUser;
           return HomePage(appUser: d);
         },
-        "/Profile": (context) => const ProfilePage(),
+        "/Profile": (context) {
+          final AppUser d = ModalRoute.of(context)?.settings.arguments as AppUser;
+          return ProfilePage(appUser: d);
+        },
         "/AddEditEntry": (context) {
           final AddEditPageArguments d = ModalRoute.of(context)?.settings.arguments as AddEditPageArguments;
           return AddEditPage(addPageArguments: d);

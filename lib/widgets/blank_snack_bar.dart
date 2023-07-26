@@ -7,7 +7,7 @@ import 'package:easy_tracker/utils/themes.dart';
 void showBlankSnackBar(BuildContext ctx, String str) {
   ScaffoldMessenger.of(ctx).showSnackBar(
     SnackBar(
-      backgroundColor: fgWhite,
+      backgroundColor: fgWhiteTransparent,
       content: Text(
         str,
         style: bodyMedium,

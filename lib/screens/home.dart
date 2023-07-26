@@ -78,16 +78,15 @@ class _HomePageState extends State<HomePage> {
     return d;
   }
 
-  @override
-  Widget build(BuildContext context) {
-
-    Future<EntryData> addData(BuildContext context, AddEditPageArguments nullData) async {
-      return await Navigator.of(context).pushNamed(
+  Future<EntryData> addData(BuildContext ctx, AddEditPageArguments nullData) async {
+    return await Navigator.of(ctx).pushNamed(
         "/AddEditEntry",
         arguments: nullData
-      ) as EntryData;
-    }
+    ) as EntryData;
+  }
 
+  @override
+  Widget build(BuildContext context) {
     return FutureBuilder(
       future: prepareData(),
       builder: (context, data) {
@@ -106,10 +105,11 @@ class _HomePageState extends State<HomePage> {
               backgroundColor: btnWhite,
               child: const Icon(
                 Icons.add,
+                size: 30,
                 color: Colors.black
               ),
               onPressed: () async {
-                // nullData is required to supply the AddPage()
+                // nullData must be supplied to the AddPage()
                 EntryData nullData = EntryData(
                   id: -1,
                   amount: 0,
@@ -126,13 +126,12 @@ class _HomePageState extends State<HomePage> {
                   } else {
                     await dataManager.addInc(returnData);
                   }
+                  // Refresh only if Data is changed (added)
+                  setState(() {}); // REFRESHER
                 }
-                setState(() {}); // REFRESHER
               },
             ),
             body: Container(
-              width: double.infinity,
-              height: double.infinity,
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
               child: SingleChildScrollView(
                 clipBehavior: Clip.none,
@@ -163,11 +162,13 @@ class _HomePageState extends State<HomePage> {
                               child: TextButton(
                                 style: txtBtnTheme,
                                 onPressed: () async {
-                                  await Navigator.of(context).pushNamed(
+                                  bool changed = await Navigator.of(context).pushNamed(
                                     "/Income",
                                     arguments: dataManager,
-                                  );
-                                  setState(() {}); // REFRESHER
+                                  ) as bool;
+                                  if (changed) {
+                                    setState(() {}); // REFRESHER
+                                  }
                                 },
                                 child: const Text(
                                   "display all",
@@ -201,11 +202,13 @@ class _HomePageState extends State<HomePage> {
                               child: TextButton(
                                 style: txtBtnTheme,
                                 onPressed: () async {
-                                  await Navigator.of(context).pushNamed(
+                                  bool changed = await Navigator.of(context).pushNamed(
                                     "/Expense",
                                     arguments: dataManager
-                                  );
-                                  setState(() {}); // REFRESHER
+                                  ) as bool;
+                                  if (changed) {
+                                    setState(() {}); // REFRESHER
+                                  }
                                 },
                                 child: const Text(
                                   "display all",

@@ -2,10 +2,15 @@
 import 'package:flutter/material.dart';
 
 // Local
+import 'package:easy_tracker/utils/app_user.dart';
 import 'package:easy_tracker/utils/themes.dart';
 
 class ProfilePage extends StatefulWidget {
-  const ProfilePage({Key? key}) : super(key: key);
+  final AppUser appUser;
+  const ProfilePage({
+    Key? key,
+    required this.appUser
+  }) : super(key: key);
 
   @override
   State<ProfilePage> createState() => _ProfilePageState();

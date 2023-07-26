@@ -27,19 +27,33 @@ class _LoginPageState extends State<LoginPage> {
   TextEditingController passwordController = TextEditingController();
 
   Future<User?> signIn(BuildContext ctx) async {
-    showDialog(
-        context: ctx,
-        barrierDismissible: false,
-        builder: (BuildContext ctx) {
-          return const Center(child: CircularProgressIndicator());
-        });
-
+    String eml = emailController.text.trim();
+    String psd = passwordController.text.trim();
     User? user;
+
+    // protections
+    if (eml.isEmpty) {
+      await showSimpleDialog(ctx, "Please enter your Email.");
+      return user;
+    }
+    if (psd.isEmpty) {
+      await showSimpleDialog(ctx, "Please enter password.");
+      return user;
+    }
+
+    showDialog(
+      context: ctx,
+      barrierDismissible: false,
+      builder: (BuildContext ctx) {
+        return const Center(child: CircularProgressIndicator());
+      }
+    );
+
     try {
       FirebaseAuth auth = FirebaseAuth.instance;
       final UserCredential uC = await auth.signInWithEmailAndPassword(
-        email: emailController.text.trim(),
-        password: passwordController.text.trim()
+        email: eml,
+        password: psd
       );
       user = uC.user;
       if (user != null) {
@@ -120,7 +134,9 @@ class _LoginPageState extends State<LoginPage> {
                           TextButton(
                             onPressed: () {
                               Navigator.pushReplacementNamed(
-                                context, "/Signup");
+                                context,
+                                "/Signup"
+                              );
                             },
                             style: txtBtnTheme,
                             child: const Text(
@@ -138,7 +154,7 @@ class _LoginPageState extends State<LoginPage> {
                   width: double.infinity,
                   padding: const EdgeInsets.all(10),
                   decoration: ShapeDecoration(
-                    color: fgWhite,
+                    color: fgWhiteTransparent,
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
                     shadows: const [generalShadow],
                   ),
@@ -177,7 +193,8 @@ class _LoginPageState extends State<LoginPage> {
                     if (user != null && context.mounted) {
                       AppUser u = AppUser(
                         user.uid.toString(),
-                        user.displayName.toString(), user.email.toString());
+                        user.displayName.toString(), user.email.toString()
+                      );
                       Navigator.of(context).pushReplacementNamed("/Main", arguments: u);
                     }
                   },

@@ -32,15 +32,15 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   Future<List<StatefulWidget>> prepareData() async {
-    AppUser u = ModalRoute.of(context)!.settings.arguments as AppUser;
+    AppUser u = widget.appUser;
     final pages = [
       HomePage(appUser: u),
-      const ProfilePage(),
+      ProfilePage(appUser: u),
     ];
     return pages;
   }
 
-  int currentIndex = 0;
+  int _currentIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +48,7 @@ class _MainPageState extends State<MainPage> {
       onWillPop: () async {
         bool shouldLogout = await showConfirmLogoutDialog(context);
         if (shouldLogout && context.mounted) {
-          Navigator.of(context).pop();
+          Navigator.of(context).popUntil(ModalRoute.withName("/"));
           await FirebaseAuth.instance.signOut();
         }
         return false;
@@ -59,22 +59,25 @@ class _MainPageState extends State<MainPage> {
           automaticallyImplyLeading: false,
         ),
         bottomNavigationBar: NavigationBar(
-          height: 60,
-          selectedIndex: currentIndex,
+          // height: 60,
           backgroundColor: fgWhite,
-          labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
+          indicatorColor: Colors.black12,
+          labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
+          selectedIndex: _currentIndex,
           onDestinationSelected: (int index) {
             setState(() {
-              currentIndex = index;
+              _currentIndex = index;
             });
           },
           destinations: const [
             NavigationDestination(
-              icon: Icon(Icons.home_filled),
+              icon: Icon(Icons.home_outlined, size: 30),
+              selectedIcon: Icon(Icons.home_filled, size: 30),
               label: 'Home',
             ),
             NavigationDestination(
-              icon: Icon(Icons.person_rounded),
+              icon: Icon(Icons.person_outlined, size: 30),
+              selectedIcon: Icon(Icons.person_rounded, size: 30),
               label: 'Profile',
             ),
           ],
@@ -84,16 +87,19 @@ class _MainPageState extends State<MainPage> {
           builder: (context, data) {
             if (data.hasError) {
               return Center(
-                child: Text(
-                  "Error: ${data.error}",
-                  style: bodyMedium,
+                child: Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: Text(
+                    "Error: ${data.error}",
+                    style: bodyMedium,
+                  )
                 )
               );
             } else if (data.connectionState == ConnectionState.waiting) {
               return const Center(child: CircularProgressIndicator());
             } else {
               final pages = data.data as List<StatefulWidget>;
-              return pages[currentIndex];
+              return pages[_currentIndex];
             }
           }
         ),
