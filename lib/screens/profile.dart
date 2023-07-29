@@ -26,24 +26,24 @@ class _ProfilePageState extends State<ProfilePage> {
         ),
         backgroundColor: fgWhite,
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            ProfileWidget(
-              email: widget.appUser.email,
-              name: widget.appUser.name,
-              appUser: widget.appUser, // Pass the appUser instance to the ProfileWidget
-              onUpdateName: (newName) {
-                setState(() {
-                  widget.appUser.name = newName; // Update the name in the appUser instance
-                });
-              },
-            ),
-            SizedBox(height: 20),
-          ],
-        ),
-      ),
+      // body: Center(
+      //   child: Column(
+      //     mainAxisAlignment: MainAxisAlignment.center,
+      //     children: [
+      //       ProfileWidget(
+      //         email: widget.appUser.email,
+      //         name: widget.appUser.name,
+      //         appUser: widget.appUser, // Pass the appUser instance to the ProfileWidget
+      //         onUpdateName: (newName) {
+      //           setState(() {
+      //             widget.appUser.name = newName; // Update the name in the appUser instance
+      //           });
+      //         },
+      //       ),
+      //       SizedBox(height: 20),
+      //     ],
+      //   ),
+      // ),
     );
   }
 }
