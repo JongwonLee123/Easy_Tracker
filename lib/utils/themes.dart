@@ -187,3 +187,15 @@ const bodyNumSmall = TextStyle(
   fontFamily: 'Rubik',
   fontWeight: FontWeight.w600,
 );
+const usernameTextStyle = TextStyle(
+  color: Colors.black,
+  fontSize: 34,
+  fontFamily: 'Quicksand',
+  fontWeight: FontWeight.w900,
+);
+final usernameTextStyleFaded = TextStyle(
+  color: Colors.black.withOpacity(0.4),
+  fontSize: 34,
+  fontFamily: 'Quicksand',
+  fontWeight: FontWeight.w900,
+);

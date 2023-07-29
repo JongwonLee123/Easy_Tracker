@@ -1,80 +1,86 @@
 // 3rd-party Packages
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 
 // Local
+import 'package:easy_tracker/utils/app_user.dart';
 import 'package:easy_tracker/utils/themes.dart';
 import 'package:easy_tracker/widgets/simple_dialog.dart';
 
-// Sign Up Page
+// Login Page
 // on error, show pop up, do nothing
-// on successful sign up, return back to WelcomePage by welcome.dart
+// on successful login, proceed to MainPage by main_page.dart
 
-// uses Navigator.pop to go back to WelcomePage
+// uses Navigator.pushReplacementNamed to prevent
+// back button from navigating back to this page
 
-class SignupPage extends StatefulWidget {
-  const SignupPage({Key? key}) : super(key: key);
+class LoginPage extends StatefulWidget {
+  const LoginPage({Key? key}) : super(key: key);
 
   @override
-  State<SignupPage> createState() => _SignupPageState();
+  State<LoginPage> createState() => _LoginPageState();
 }
 
-class _SignupPageState extends State<SignupPage> {
+class _LoginPageState extends State<LoginPage> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-  TextEditingController confirmController = TextEditingController();
 
-  Future<bool> signUp(BuildContext ctx) async {
+  Future<User?> signIn(BuildContext ctx) async {
     String eml = emailController.text.trim();
     String psd = passwordController.text.trim();
-    String confirmPsd = confirmController.text.trim();
+    User? user;
 
     // protections
     if (eml.isEmpty) {
       await showSimpleDialog(ctx, "Please enter your Email.");
-      return false;
+      return user;
     }
     if (psd.isEmpty) {
       await showSimpleDialog(ctx, "Please enter password.");
-      return false;
-    }
-    if (psd != confirmPsd) {
-      await showSimpleDialog(ctx, "Passwords do not match.");
-      return false;
+      return user;
     }
 
-    bool successful = false;
     showDialog(
       context: ctx,
       barrierDismissible: false,
       builder: (BuildContext ctx) {
-        return const Center(
-          child: CircularProgressIndicator()
-        );
+        return const Center(child: CircularProgressIndicator());
       }
     );
+
     try {
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      FirebaseAuth auth = FirebaseAuth.instance;
+      final UserCredential uC = await auth.signInWithEmailAndPassword(
         email: eml,
         password: psd
       );
-      successful = true;
-      if (ctx.mounted) {
-        await showSimpleDialog(ctx, "Account Successfully Created");
+      user = uC.user;
+      if (user != null) {
+        DatabaseReference ref =
+          FirebaseDatabase.instance.ref("users/${user.uid}");
+        final snapshot = await ref.get();
+        if (!(snapshot.exists)) {
+          await ref.set({"name": user.displayName, "email": user.email});
+        }
+        if (ctx.mounted) {
+          Navigator.of(ctx).pushReplacementNamed("/Main");
+        }
       }
-      return true;
     } on FirebaseAuthException catch (e) {
       await showSimpleDialog(ctx, e.message.toString());
     }
-    if (ctx.mounted) {Navigator.of(ctx).pop();}
-    return successful;
+
+    if (ctx.mounted) {
+      Navigator.of(ctx).pop();
+    }
+    return user;
   }
 
   @override
   void dispose() {
     emailController.dispose();
     passwordController.dispose();
-    confirmController.dispose();
     super.dispose();
   }
 
@@ -83,7 +89,7 @@ class _SignupPageState extends State<SignupPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          "Create Account",
+          "Sign In",
           style: bodyMedium,
         ),
         backgroundColor: fgWhite,
@@ -105,7 +111,7 @@ class _SignupPageState extends State<SignupPage> {
                 Container(
                   alignment: Alignment.centerLeft,
                   child: const Text(
-                    "Create Account",
+                    "Sign In",
                     style: bodyLarge,
                   ),
                 ),
@@ -116,25 +122,25 @@ class _SignupPageState extends State<SignupPage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const Text(
-                        "Please create an account",
+                        "Please sign in to continue",
                         style: bodyMedium,
                       ),
                       Row(
                         children: [
                           const Text(
-                            "Already have an account?",
+                            "Don't have an account?",
                             style: bodySmall,
                           ),
                           TextButton(
                             onPressed: () {
                               Navigator.pushReplacementNamed(
                                 context,
-                                "/Login"
+                                "/Signup"
                               );
                             },
                             style: txtBtnTheme,
                             child: const Text(
-                              "Sign In",
+                              "Create One",
                               style: bodySmallGreen,
                             )
                           ),
@@ -168,28 +174,35 @@ class _SignupPageState extends State<SignupPage> {
                           decoration: customInputDecoWithLabel("Password")
                         )
                       ),
-                      const SizedBox(height: 10),
-                      SizedBox(
-                        child: TextField(
-                          controller: confirmController,
-                          obscureText: true,
-                          decoration: customInputDecoWithLabel("Confirm Password")
-                        )
-                      ),
                     ],
                   ),
                 ),
-                const SizedBox(height: 20),
+                const SizedBox(height: 10),
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pushNamed("/ForgotPassword");
+                  },
+                  style: txtBtnTheme,
+                  child: const Text(
+                    "Forgot Password?",
+                    style: bodySmallGreen,
+                  )
+                ),
+                const SizedBox(height: 10),
                 ElevatedButton(
                   onPressed: () async {
-                    bool pop = await signUp(context);
-                    if (pop && context.mounted) {
-                      Navigator.of(context).popUntil(ModalRoute.withName("/"));
+                    final user = await signIn(context);
+                    if (user != null && context.mounted) {
+                      AppUser u = AppUser(
+                        user.uid.toString(),
+                        user.email.toString()
+                      );
+                      Navigator.of(context).pushReplacementNamed("/Main", arguments: u);
                     }
                   },
                   style: mainBtnTheme,
                   child: const Text(
-                    'Sign Up',
+                    'Sign In',
                     textAlign: TextAlign.center,
                     style: bodyMedium,
                   ),

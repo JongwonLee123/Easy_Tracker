@@ -97,7 +97,10 @@ class _HomePageState extends State<HomePage> {
               style: bodyMedium,
             ));
         } else if (data.connectionState == ConnectionState.waiting) {
-          return const Center(child: CircularProgressIndicator());
+          return const Center(
+            child: CircularProgressIndicator(
+              color: fgWhite,
+            ));
         } else {
           EntryManager dataManager = data.data as EntryManager;
           return Scaffold(
