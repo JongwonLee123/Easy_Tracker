@@ -36,6 +36,13 @@ final mainBtnTheme = ElevatedButton.styleFrom(
     borderRadius: BorderRadius.circular(25),
   )
 );
+final btnGreyTheme = ElevatedButton.styleFrom(
+    elevation: 2,
+    backgroundColor: const Color(0xFFA5AE9E),
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(5),
+    )
+);
 final btnWhiteTheme = ElevatedButton.styleFrom(
   elevation: 2,
   backgroundColor: btnWhite,
