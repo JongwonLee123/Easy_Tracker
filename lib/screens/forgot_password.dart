@@ -40,7 +40,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
     );
     try {
       await FirebaseAuth.instance.sendPasswordResetEmail(
-          email: eml,
+        email: eml,
       );
       successful = true;
       if (ctx.mounted) {
