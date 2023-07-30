@@ -1,6 +1,5 @@
 // Debug
 import 'package:easy_tracker/widgets/simple_dialog.dart';
-import 'package:easy_tracker/widgets/username_edit_dialog.dart';
 
 // 3rd-party Packages
 import 'package:firebase_auth/firebase_auth.dart';
@@ -11,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:easy_tracker/utils/app_user.dart';
 import 'package:easy_tracker/utils/themes.dart';
 import 'package:easy_tracker/widgets/confirm_logout_dialog.dart';
+import 'package:easy_tracker/widgets/username_edit_dialog.dart';
 
 class ProfilePage extends StatefulWidget {
   final AppUser appUser;

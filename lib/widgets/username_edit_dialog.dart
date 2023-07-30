@@ -1,9 +1,9 @@
 // 3rd-party Packages
-import 'package:easy_tracker/widgets/simple_dialog.dart';
 import 'package:flutter/material.dart';
 
 // Local
 import 'package:easy_tracker/utils/themes.dart';
+import 'package:easy_tracker/widgets/simple_dialog.dart';
 
 // this thing returns null or string
 // ===== WARNING =====
