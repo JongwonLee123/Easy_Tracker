@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:easy_tracker/utils/themes.dart';
 
 class EmailWidget extends StatelessWidget {
   final String email;
@@ -9,7 +10,7 @@ class EmailWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       "Email: $email",
-      style: TextStyle(fontSize: 16),
+      style: bodySmall,
     );
   }
 }

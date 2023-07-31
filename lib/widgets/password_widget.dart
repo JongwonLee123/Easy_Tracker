@@ -11,7 +11,10 @@ class PasswordWidget extends StatelessWidget {
     return ElevatedButton(
       style: btnGreyTheme,
       onPressed: onChangePassword,
-      child: Text("Change Password"),
+      child: const Text(
+        "Change Password",
+        style: bodySmall,
+      ),
     );
   }
 }

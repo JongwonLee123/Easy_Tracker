@@ -17,14 +17,17 @@ class UsernameWidget extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(
-          "Name: ${name ?? 'N/A'}",
-          style: TextStyle(fontSize: 16),
+          "Name: ${name ?? 'No Name'}",
+          style: bodySmall,
         ),
-        SizedBox(width: 10),
+        const SizedBox(width: 10),
         ElevatedButton(
           style: btnGreyTheme,
           onPressed: onEdit,
-          child: Text('Edit'),
+          child: const Text(
+            'Edit',
+            style: bodySmall,
+          ),
         ),
       ],
     );

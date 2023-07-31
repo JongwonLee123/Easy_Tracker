@@ -97,7 +97,10 @@ class _HomePageState extends State<HomePage> {
               style: bodyMedium,
             ));
         } else if (data.connectionState == ConnectionState.waiting) {
-          return const Center(child: CircularProgressIndicator());
+          return const Center(
+            child: CircularProgressIndicator(
+              color: fgWhite,
+            ));
         } else {
           EntryManager dataManager = data.data as EntryManager;
           return Scaffold(
@@ -131,10 +134,10 @@ class _HomePageState extends State<HomePage> {
                 }
               },
             ),
-            body: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-              child: SingleChildScrollView(
-                clipBehavior: Clip.none,
+            body: SingleChildScrollView(
+              clipBehavior: Clip.none,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -224,7 +227,7 @@ class _HomePageState extends State<HomePage> {
                       ]
                     )
                   ],
-                )
+                ),
               )
             )
           );

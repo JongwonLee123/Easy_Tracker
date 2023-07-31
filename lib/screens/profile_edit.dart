@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:easy_tracker/utils/themes.dart';
 
 enum EditFieldType {
-  Password,
-  Username,
+  password,
+  username,
 }
 
 class EditNamePage extends StatelessWidget {
@@ -11,7 +11,7 @@ class EditNamePage extends StatelessWidget {
   final String initialValue;
   final Function(String) onSaveValue;
 
-  EditNamePage({
+  const EditNamePage({
     Key? key,
     required this.fieldType,
     required this.initialValue,
@@ -25,45 +25,48 @@ class EditNamePage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(fieldType == EditFieldType.Password ? "Edit Password" : "Edit Username"),
+        title: Text(
+          fieldType == EditFieldType.password ? "Edit Password" : "Edit Username",
+          style: bodyMedium,
+        ),
       ),
       body: Center(
         child: Container(
-          padding: EdgeInsets.all(16),
+          padding: const EdgeInsets.all(16),
           child: Container(
-            padding: EdgeInsets.all(8),
+            padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(
               color: fgWhite.withOpacity(0.6),
               borderRadius: BorderRadius.circular(8),
             ),
             child: Padding(
-              padding: EdgeInsets.all(16),
+              padding: const EdgeInsets.all(16),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   TextField(
-                    style: bodyNumSmall, // Apply the text style for the TextField
+                    style: bodySmall, // Apply the text style for the TextField
                     onChanged: (value) {
                       newValue = value;
                     },
                     decoration: InputDecoration(
-                      labelText: fieldType == EditFieldType.Password ? "New Password" : "New Username",
+                      labelText: fieldType == EditFieldType.password ? "New Password" : "New Username",
                     ),
                   ),
-                  if (fieldType == EditFieldType.Password) SizedBox(height: 16),
+                  if (fieldType == EditFieldType.password) const SizedBox(height: 16),
                   TextField(
-                    style: bodyNumSmall, // Apply the text style for the TextField
+                    style: bodySmall, // Apply the text style for the TextField
                     onChanged: (value) {
                       confirmationValue = value;
                     },
                     decoration: InputDecoration(
-                      labelText: fieldType == EditFieldType.Password
+                      labelText: fieldType == EditFieldType.password
                           ? "Confirm Password"
                           : "Confirm Username",
                     ),
                   ),
-                  SizedBox(height: 16),
+                  const SizedBox(height: 16),
                   ElevatedButton(
                     style: btnGreenTheme, // Apply the button style
                     onPressed: () {
@@ -72,48 +75,134 @@ class EditNamePage extends StatelessWidget {
                           context: context,
                           builder: (context) {
                             return AlertDialog(
-                              title: Text("Error"),
-                              content: Text("Please enter a valid value."),
+                              title: const Text(
+                                "Error",
+                                style: bodyMedium,
+                              ),
+                              content: const Text(
+                                "Please enter a valid value.",
+                                style: bodySmall,
+                              ),
                               actions: [
                                 TextButton(
+                                  style: btnWhiteTheme,
                                   onPressed: () {
                                     Navigator.pop(context);
                                   },
-                                  child: Text("OK"),
+                                  child: const Text(
+                                    "OK",
+                                    style: bodySmall,
+                                  ),
                                 ),
                               ],
                             );
                           },
                         );
-                      } else if (fieldType == EditFieldType.Password) {
+                      }
+                      else if(newValue.trim().length > 16 && fieldType == EditFieldType.username){
+                        showDialog(
+                          context: context,
+                          builder: (context) {
+                            return AlertDialog(
+                              title: const Text(
+                                "Error",
+                                style: bodyMedium,
+                              ),
+                              content: const Text(
+                                "Username can not be more than 16 characters!",
+                                style: bodySmall,
+                              ),
+                              actions: [
+                                TextButton(
+                                  style: btnWhiteTheme,
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                  child: const Text(
+                                    "OK",
+                                    style: bodySmall,
+                                  ),
+                                ),
+                              ],
+                            );
+                            },
+                        );
+                      }
+                      else if (fieldType == EditFieldType.password) {
                         if (newValue == confirmationValue) {
                           onSaveValue(newValue);
                           Navigator.pop(context); // Close the EditNamePage and navigate back to the profile page
-                        } else {
+                        }
+                        else {
                           showDialog(
                             context: context,
                             builder: (context) {
                               return AlertDialog(
-                                title: Text("Error"),
-                                content: Text("Passwords do not match."),
+                                title: const Text(
+                                  "Error",
+                                  style: bodyMedium,
+                                ),
+                                content: const Text(
+                                  "Passwords do not match.",
+                                  style: bodySmall,
+                                ),
                                 actions: [
                                   TextButton(
+                                    style: btnWhiteTheme,
                                     onPressed: () {
                                       Navigator.pop(context);
                                     },
-                                    child: Text("OK"),
+                                    child: const Text(
+                                      "OK",
+                                      style: bodySmall,
+                                    ),
                                   ),
                                 ],
                               );
                             },
                           );
                         }
-                      } else {
-                        onSaveValue(newValue);
-                        Navigator.pop(context); // Close the EditNamePage and navigate back to the profile page
+                      }
+                      else {
+                        if(newValue == confirmationValue){
+                          onSaveValue(newValue);
+                          Navigator.pop(context);
+                        }
+                        else {
+                          showDialog(
+                            context: context,
+                            builder: (context) {
+                              return AlertDialog(
+                                title: const Text(
+                                  "Error",
+                                  style: bodyMedium,
+                                ),
+                                content: const Text(
+                                  "Usernames do not match",
+                                  style: bodySmall,
+                                ),
+                                actions: [
+                                  TextButton(
+                                    style: btnWhiteTheme,
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    },
+                                    child: const Text(
+                                      "OK",
+                                      style: bodySmall,
+                                    ),
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                        }
                       }
                     },
-                    child: Text("Save"),
+                    child: const Text(
+                      "Save",
+                      style: bodySmallWhite,
+                    ),
                   ),
                 ],
               ),

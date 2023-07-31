@@ -47,21 +47,21 @@ final btnWhiteTheme = ElevatedButton.styleFrom(
   elevation: 2,
   backgroundColor: btnWhite,
   shape: RoundedRectangleBorder(
-    borderRadius: BorderRadius.circular(5),
+    borderRadius: BorderRadius.circular(8),
   )
 );
 final btnGreenTheme = ElevatedButton.styleFrom(
   elevation: 2,
   backgroundColor: const Color(0xFF77CD70),
   shape: RoundedRectangleBorder(
-    borderRadius: BorderRadius.circular(5),
+    borderRadius: BorderRadius.circular(8),
   )
 );
 final btnRedTheme = ElevatedButton.styleFrom(
   elevation: 2,
   backgroundColor: const Color(0xFFDD8080),
   shape: RoundedRectangleBorder(
-    borderRadius: BorderRadius.circular(5),
+    borderRadius: BorderRadius.circular(8),
   )
 );
 final txtBtnTheme = TextButton.styleFrom(
@@ -158,6 +158,12 @@ const bodySmall = TextStyle(
   fontFamily: 'Quicksand',
   fontWeight: FontWeight.w700,
 );
+const bodySmallWhite = TextStyle(
+  color: Colors.white,
+  fontSize: 16,
+  fontFamily: 'Quicksand',
+  fontWeight: FontWeight.w700,
+);
 const bodySmallFaded = TextStyle(
   color: Colors.black54,
   fontSize: 16,
@@ -193,4 +199,16 @@ const bodyNumSmall = TextStyle(
   fontSize: 16,
   fontFamily: 'Rubik',
   fontWeight: FontWeight.w600,
+);
+const usernameTextStyle = TextStyle(
+  color: Colors.black,
+  fontSize: 34,
+  fontFamily: 'Rubik',
+  fontWeight: FontWeight.w900,
+);
+const usernameTextStyleFaded = TextStyle(
+  color: Colors.black38,
+  fontSize: 34,
+  fontFamily: 'Rubik',
+  fontWeight: FontWeight.w200,
 );

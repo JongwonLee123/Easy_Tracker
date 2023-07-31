@@ -8,8 +8,14 @@ class DeleteWidget extends StatelessWidget {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text("Delete Account"),
-          content: Text("Are you sure you want to delete your account? This action cannot be undone."),
+          title: const Text(
+            "Delete Account",
+            style: bodyMedium,
+          ),
+          content: const Text(
+            "Are you sure you want to delete your account? This action cannot be undone.",
+            style: bodySmall,
+          ),
           actions: <Widget>[
             ElevatedButton(
               style: btnWhiteTheme.copyWith( // Copy btnWhiteTheme and modify properties
@@ -19,7 +25,10 @@ class DeleteWidget extends StatelessWidget {
               onPressed: () {
                 Navigator.of(context).pop(); // Close the dialog
               },
-              child: Text("Cancel"),
+              child: const Text(
+                "Cancel",
+                style: bodySmall,
+              ),
             ),
             ElevatedButton(
               style: btnRedTheme, // Apply btnRedTheme
@@ -28,7 +37,10 @@ class DeleteWidget extends StatelessWidget {
                 Navigator.of(context).pop(); // Close the dialog
                 Navigator.of(context).pop(); // Navigate back to the home page
               },
-              child: Text("Delete"),
+              child: const Text(
+                "Delete",
+                style: bodySmallWhite,
+              ),
             ),
           ],
         );
@@ -43,7 +55,10 @@ class DeleteWidget extends StatelessWidget {
       onPressed: () {
         _showConfirmationDialog(context);
       },
-      child: Text("Delete Account"),
+      child: const Text(
+        "Delete Account",
+        style: bodySmallWhite,
+      ),
     );
   }
 }

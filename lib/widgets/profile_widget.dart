@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:easy_tracker/utils/app_user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 
 import 'package:easy_tracker/utils/themes.dart';
 import 'package:easy_tracker/screens/profile_edit.dart';
-
-import 'package:easy_tracker/screens/main_page.dart';
 
 import 'package:easy_tracker/widgets/image_widget.dart';
 import 'package:easy_tracker/widgets/username_widget.dart';
@@ -27,7 +26,7 @@ class ProfileWidget extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _ProfileWidgetState createState() => _ProfileWidgetState();
+  State<ProfileWidget> createState() => _ProfileWidgetState();
 }
 
 class _ProfileWidgetState extends State<ProfileWidget> {
@@ -42,11 +41,11 @@ class _ProfileWidgetState extends State<ProfileWidget> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                SizedBox(height: 20),
-                ImageWidget(size: 150),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
+                const ImageWidget(size: 150),
+                const SizedBox(height: 20),
                 Container(
-                  padding: EdgeInsets.all(8),
+                  padding: const EdgeInsets.all(8),
                   decoration: BoxDecoration(
                     color: fgWhite.withOpacity(0.6),
                     borderRadius: BorderRadius.circular(8),
@@ -58,21 +57,29 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                       UsernameWidget(
                         name: widget.appUser.name, // Use appUser.name
                         onEdit: () {
-                          _navigateToEditPage(context, EditFieldType.Username);
+                          _navigateToEditPage(context, EditFieldType.username);
+
                         },
                       ),
-                      SizedBox(height: 10),
+                      const SizedBox(height: 10),
                       EmailWidget(email: widget.appUser.email), // Use appUser.email
-                      SizedBox(height: 20),
+                      const SizedBox(height: 20),
                       PasswordWidget(
                         onChangePassword: () {
-                          _navigateToEditPage(context, EditFieldType.Password);
+                          _navigateToEditPage(context, EditFieldType.password);
                         },
                       ),
-                      SizedBox(height: 20),
-                      DeleteWidget(),
-                      SizedBox(height: 20),
-                      LogoutWidget(),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          const SizedBox(height: 100),
+                          DeleteWidget(),
+                          const SizedBox(width: 20),
+                          LogoutWidget(widget.appUser),
+                          const SizedBox(height: 20),
+                        ],
+                      ),
                     ],
                   ),
                 ),
@@ -80,12 +87,13 @@ class _ProfileWidgetState extends State<ProfileWidget> {
             ),
           ),
         ),
+
       ),
     );
   }
 
   void _navigateToEditPage(BuildContext context, EditFieldType fieldType) {
-    String initialValue = (fieldType == EditFieldType.Username) ? widget.appUser.name ?? '' : '';
+    String initialValue = (fieldType == EditFieldType.username) ? widget.appUser.name ?? '' : '';
 
     Navigator.push(
       context,
@@ -94,31 +102,36 @@ class _ProfileWidgetState extends State<ProfileWidget> {
           fieldType: fieldType,
           initialValue: initialValue,
           onSaveValue: (newValue) async {
-            if (fieldType == EditFieldType.Username) {
+            if (fieldType == EditFieldType.username) {
               // Update the username in the appUser instance
               widget.appUser.name = newValue;
 
               // Update the display name in FirebaseAuth
               try {
                 await FirebaseAuth.instance.currentUser!.updateDisplayName(newValue);
-                print('Display name updated in FirebaseAuth.');
+                debugPrint('Display name updated in FirebaseAuth.');
               } catch (e) {
-                print('Error updating display name in FirebaseAuth: $e');
+                debugPrint('Error updating display name in FirebaseAuth: $e');
+              }
+
+              // Update the name in the Firebase Realtime Database
+              try {
+                DatabaseReference ref = FirebaseDatabase.instance.ref("users/${widget.appUser.uid}");
+                await ref.child("username").set(newValue);
+                debugPrint('Name updated in Firebase Realtime Database.');
+              } catch (e) {
+                debugPrint('Error updating name in Firebase Realtime Database: $e');
               }
             } else {
               // Update the password using FirebaseAuth
               try {
                 await FirebaseAuth.instance.currentUser!.updatePassword(newValue);
-                print('Password updated in FirebaseAuth.');
+                debugPrint('Password updated in FirebaseAuth.');
               } catch (e) {
-                print('Error updating password in FirebaseAuth: $e');
+                debugPrint('Error updating password in FirebaseAuth: $e');
               }
             }
-            Navigator.pop(context); // Close the EditNamePage
-            // Navigator.push(
-            //   context,
-            //   MaterialPageRoute(builder: (context) => MainPage(appUser: widget.appUser)),
-            // );
+            setState(() {});
           },
         ),
       ),
