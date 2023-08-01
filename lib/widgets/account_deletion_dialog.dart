@@ -121,14 +121,14 @@ class _AccountDeletionDialogState extends State<AccountDeletionDialog> {
                         );
                         return;
                       }
-                      try {
-                        if (email != currentUser.email!) {
-                          await showSimpleDialog(
+                      if (email != currentUser.email!) {
+                        await showSimpleDialog(
                             context,
                             "Invalid Email."
-                          );
-                          return;
-                        }
+                        );
+                        return;
+                      }
+                      try {
                         final credential = EmailAuthProvider.credential(
                           email: currentUser.email!,
                           password: password
