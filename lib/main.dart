@@ -8,6 +8,7 @@ import 'package:easy_tracker/screens/home.dart';
 import 'package:easy_tracker/screens/login.dart';
 import 'package:easy_tracker/screens/main_page.dart';
 import 'package:easy_tracker/screens/profile.dart';
+import 'package:easy_tracker/screens/profile_manage.dart';
 import 'package:easy_tracker/screens/signup.dart';
 import 'package:easy_tracker/screens/sub_pages/add_edit_page.dart';
 import 'package:easy_tracker/screens/sub_pages/expense_page.dart';
@@ -49,6 +50,10 @@ class MainApp extends StatelessWidget {
         "/Profile": (context) {
           final AppUser d = ModalRoute.of(context)?.settings.arguments as AppUser;
           return ProfilePage(appUser: d);
+        },
+        "/Manage": (context) {
+          final AppUser d = ModalRoute.of(context)?.settings.arguments as AppUser;
+          return ProfileManagePage(appUser: d);
         },
         "/AddEditEntry": (context) {
           final AddEditPageArguments d = ModalRoute.of(context)?.settings.arguments as AddEditPageArguments;

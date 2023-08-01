@@ -126,12 +126,20 @@ class EntryManager{
   }
 
   Future<void> writeIncData() async {
+    if (incList.isEmpty) {
+      await ref.child("inc").set(null);
+      return;
+    }
     final incListMap = incList.map((e) => e.toJson()).toList();
     final incStr = json.encode(incListMap);
     await ref.child("inc").set(incStr);
   }
 
   Future<void> writeExpData() async {
+    if (expList.isEmpty) {
+      await ref.child("exp").set(null);
+      return;
+    }
     final expListMap = expList.map((e) => e.toJson()).toList();
     final expStr = json.encode(expListMap);
     await ref.child("exp").set(expStr);

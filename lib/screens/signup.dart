@@ -26,8 +26,8 @@ class _SignupPageState extends State<SignupPage> {
 
   Future<bool> signUp(BuildContext ctx) async {
     String eml = emailController.text.trim();
-    String psd = passwordController.text.trim();
-    String confirmPsd = confirmController.text.trim();
+    String psd = passwordController.text;
+    String confirmPsd = confirmController.text;
 
     // protections
     if (eml.isEmpty) {
@@ -36,6 +36,10 @@ class _SignupPageState extends State<SignupPage> {
     }
     if (psd.isEmpty) {
       await showSimpleDialog(ctx, "Please enter password.");
+      return false;
+    }
+    if (psd.contains(" ")) {
+      await showSimpleDialog(ctx, "Password must not contain spaces.");
       return false;
     }
     if (psd != confirmPsd) {
@@ -60,7 +64,11 @@ class _SignupPageState extends State<SignupPage> {
       );
       successful = true;
       if (ctx.mounted) {
-        await showSimpleDialog(ctx, "Account Successfully Created.");
+        await showSimpleDialog(
+          ctx,
+          "Account Successfully Created.\n"
+              "Please Sign in again to use the app."
+        );
       }
       return true;
     } on FirebaseAuthException catch (e) {

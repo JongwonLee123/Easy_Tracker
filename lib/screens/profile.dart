@@ -1,9 +1,5 @@
-// Debug
-import 'package:easy_tracker/widgets/simple_dialog.dart';
-
 // 3rd-party Packages
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 
 // Local
@@ -23,7 +19,7 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
 
   Future<void> prepareData() async {
-    await widget.appUser.loadData();
+    widget.appUser.loadData();
   }
 
   @override
@@ -36,7 +32,8 @@ class _ProfilePageState extends State<ProfilePage> {
             child: Text(
               "Error: ${data.error}",
               style: bodyMedium,
-            ));
+            )
+          );
         } else if (data.connectionState == ConnectionState.waiting) {
           return const Center(
             child: CircularProgressIndicator(
@@ -78,7 +75,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 if (name.isEmpty)
-                                  Text(
+                                  const Text(
                                     "Not set",
                                     style: usernameTextStyleFaded,
                                   ),
@@ -99,12 +96,12 @@ class _ProfilePageState extends State<ProfilePage> {
                                     if (newName == null) {
                                       return;
                                     }
-                                    DatabaseReference ref = FirebaseDatabase.instance.ref("users/${widget.appUser.uid}");
+                                    User u = FirebaseAuth.instance.currentUser!;
                                     if (newName == "") {
                                       widget.appUser.name = "";
-                                      await ref.child("username").set(null);
+                                      await u.updateDisplayName(null);
                                     } else {
-                                      await ref.child("username").set(newName);
+                                      await u.updateDisplayName(newName);
                                     }
                                     setState(() {
                                       widget.appUser.loadData();
@@ -150,8 +147,11 @@ class _ProfilePageState extends State<ProfilePage> {
                             SizedBox(
                               height: 50,
                               child: ElevatedButton(
-                                onPressed: () async {
-                                  await showSimpleDialog(context, "Nah");
+                                onPressed: () {
+                                  Navigator.of(context).pushNamed(
+                                    "/Manage",
+                                    arguments: widget.appUser
+                                  );
                                 },
                                 style: btnWhiteTheme,
                                 child: const Text(

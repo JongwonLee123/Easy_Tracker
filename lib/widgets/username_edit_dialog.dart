@@ -6,6 +6,7 @@ import 'package:easy_tracker/utils/themes.dart';
 import 'package:easy_tracker/widgets/simple_dialog.dart';
 
 // this thing returns null or string
+// this never returns empty string
 // ===== WARNING =====
 // handle edit from outside
 // this does nothing inside
@@ -48,7 +49,7 @@ class _UsernameEditDialogState extends State<UsernameEditDialog> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Text(
                 "Please type in your new Username.",

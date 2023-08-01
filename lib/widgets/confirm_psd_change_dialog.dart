@@ -6,27 +6,20 @@ import 'package:easy_tracker/utils/themes.dart';
 
 // this thing returns true or false
 // ===== WARNING =====
-// handle delete from outside
+// handle password change from outside
 // this does nothing inside
 
-Future<bool> showConfirmDeleteDialog(BuildContext ctx, String s) async {
+Future<bool> showConfirmPsdChangeDialog(BuildContext ctx) async {
   return await showDialog(
     context: ctx,
     builder: (BuildContext context) {
-      return ConfirmDeleteDialog(
-        text: s,
-      );
+      return const ConfirmPsdChangeDialog();
     }
   );
 }
 
-class ConfirmDeleteDialog extends StatelessWidget {
-  final String text;
-
-  const ConfirmDeleteDialog({
-    super.key,
-    required this.text
-  });
+class ConfirmPsdChangeDialog extends StatelessWidget {
+  const ConfirmPsdChangeDialog({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -50,12 +43,7 @@ class ConfirmDeleteDialog extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               const Text(
-                "This action can't be undone.",
-                style: bodyMedium,
-              ),
-              Text(
-                text,
-                textAlign: TextAlign.center,
+                "Are you sure you want to change the password?",
                 style: bodyMedium,
               ),
               Row(
@@ -67,8 +55,8 @@ class ConfirmDeleteDialog extends StatelessWidget {
                     },
                     style: txtBtnTheme,
                     child: const Text(
-                      'Cancel',
-                      style: bodySmall
+                        'Cancel',
+                        style: bodySmall
                     ),
                   ),
                   TextButton(
@@ -77,8 +65,8 @@ class ConfirmDeleteDialog extends StatelessWidget {
                     },
                     style: txtBtnTheme,
                     child: const Text(
-                      'Confirm',
-                      style: bodySmallRed
+                        'Confirm',
+                        style: bodySmallGreen
                     ),
                   ),
                 ],

@@ -1,9 +1,9 @@
 // 3rd-party Packages
-import 'package:easy_tracker/utils/datetime_util.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 // Local
+import 'package:easy_tracker/utils/datetime_util.dart';
 import 'package:easy_tracker/utils/entry_data.dart';
 import 'package:easy_tracker/utils/themes.dart';
 
@@ -349,7 +349,7 @@ class _AddEditPageState extends State<AddEditPage> {
                                         ),
                                       if (d < 0.0)
                                         const Text(
-                                          "Please enter a Positive Amount!",
+                                          "Please enter a Positive Number Amount!",
                                           style: bodyMedium
                                         ),
                                       Container(

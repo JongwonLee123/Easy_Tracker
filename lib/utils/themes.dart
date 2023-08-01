@@ -139,6 +139,12 @@ const bodyLarge = TextStyle(
   fontFamily: 'Quicksand',
   fontWeight: FontWeight.w800,
 );
+const bodyBig = TextStyle(
+  color: Colors.black,
+  fontSize: 28,
+  fontFamily: 'Quicksand',
+  fontWeight: FontWeight.w800,
+);
 const bodyMedium = TextStyle(
   color: Colors.black,
   fontSize: 20,

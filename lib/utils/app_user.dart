@@ -3,7 +3,6 @@
 // as long as the user does not Sign Out.
 
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_database/firebase_database.dart';
 
 class AppUser {
   String uid;
@@ -12,16 +11,11 @@ class AppUser {
 
   AppUser(this.uid, this.email);
 
-  Future<void> loadData() async {
-    DatabaseReference ref = FirebaseDatabase.instance.ref("users/$uid");
-    final snapE = await ref.child("email").get();
-    if (snapE.exists) {
-      email = snapE.value.toString();
+  void loadData() {
+    User u = FirebaseAuth.instance.currentUser!;
+    if (u.displayName != null) {
+      name = u.displayName;
     }
-
-    final snapN = await ref.child("username").get();
-    if (snapN.exists) {
-      name = snapN.value.toString();
-    }
+    email = u.email as String;
   }
 }

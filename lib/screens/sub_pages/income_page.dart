@@ -49,7 +49,7 @@ class _IncomePageState extends State<IncomePage> {
   }
 
   Future<void> delIncData(BuildContext ctx, int index, EntryManager eM) async {
-    bool shouldDelete = await showConfirmDeleteDialog(ctx);
+    bool shouldDelete = await showConfirmDeleteDialog(ctx, "Delete this Record?");
     if (shouldDelete) {
       eM.rmvInc(index);
       changed = true;
@@ -194,7 +194,7 @@ class _IncomePageState extends State<IncomePage> {
           backgroundColor: fgWhite,
           leading: BackButton(
             onPressed: () {
-              Navigator.pop(context, changed);
+              Navigator.of(context).pop(changed);
             },
             color: Colors.black,
           ),

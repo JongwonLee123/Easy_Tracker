@@ -49,7 +49,7 @@ class _ExpensePageState extends State<ExpensePage> {
   }
 
   Future<void> delExpData(BuildContext ctx, int index, EntryManager eM) async {
-    bool shouldDelete = await showConfirmDeleteDialog(ctx);
+    bool shouldDelete = await showConfirmDeleteDialog(ctx, "Delete this Record?");
     if (shouldDelete) {
       eM.rmvExp(index);
       changed = true;
@@ -194,7 +194,7 @@ class _ExpensePageState extends State<ExpensePage> {
           backgroundColor: fgWhite,
           leading: BackButton(
             onPressed: () {
-              Navigator.pop(context, changed);
+              Navigator.of(context).pop(changed);
             },
             color: Colors.black,
           ),

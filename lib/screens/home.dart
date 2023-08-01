@@ -7,6 +7,7 @@ import 'package:easy_tracker/utils/app_user.dart';
 import 'package:easy_tracker/utils/entry_data.dart';
 import 'package:easy_tracker/utils/entry_manager.dart';
 import 'package:easy_tracker/utils/themes.dart';
+import 'package:easy_tracker/widgets/blank_snack_bar.dart';
 import 'package:easy_tracker/widgets/entry_card.dart';
 import 'package:easy_tracker/widgets/net_card.dart';
 
@@ -128,6 +129,9 @@ class _HomePageState extends State<HomePage> {
                     await dataManager.addExp(returnData);
                   } else {
                     await dataManager.addInc(returnData);
+                  }
+                  if (context.mounted) {
+                    showBlankSnackBar(context, "Data Added");
                   }
                   // Refresh only if Data is changed (added)
                   setState(() {}); // REFRESHER

@@ -28,7 +28,7 @@ class _LoginPageState extends State<LoginPage> {
 
   Future<User?> signIn(BuildContext ctx) async {
     String eml = emailController.text.trim();
-    String psd = passwordController.text.trim();
+    String psd = passwordController.text;
     User? user;
 
     // protections
@@ -38,6 +38,10 @@ class _LoginPageState extends State<LoginPage> {
     }
     if (psd.isEmpty) {
       await showSimpleDialog(ctx, "Please enter password.");
+      return user;
+    }
+    if (psd.contains(" ")) {
+      await showSimpleDialog(ctx, "Password must not contain spaces.");
       return user;
     }
 
