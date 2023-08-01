@@ -35,6 +35,8 @@ class _AccountDeletionDialogState extends State<AccountDeletionDialog> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
+  final currentUser = FirebaseAuth.instance.currentUser!;
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -120,17 +122,24 @@ class _AccountDeletionDialogState extends State<AccountDeletionDialog> {
                         return;
                       }
                       try {
-                        final currentUser = FirebaseAuth.instance.currentUser!;
+                        if (email != currentUser.email!) {
+                          await showSimpleDialog(
+                            context,
+                            "Invalid Email."
+                          );
+                          return;
+                        }
                         final credential = EmailAuthProvider.credential(
-                            email: email,
-                            password: password
+                          email: currentUser.email!,
+                          password: password
                         );
                         await currentUser.reauthenticateWithCredential(credential);
                         bool shouldDelete = false;
                         if (context.mounted) {
                           shouldDelete = await showConfirmDeleteDialog(
                             context,
-                            "Are you sure you want to delete this account forever?"
+                            "Are you sure you want to "
+                                "delete this account forever?"
                           );
                         }
                         if (shouldDelete) {
@@ -140,14 +149,15 @@ class _AccountDeletionDialogState extends State<AccountDeletionDialog> {
                             Navigator.of(context).popUntil(ModalRoute.withName("/"));
                             showBlankSnackBar(
                               context,
-                              "Account successfully Deleted"
+                              "Account successfully Deleted, "
+                                  "See you Next Time!"
                             );
                           }
                         }
                       } on FirebaseAuthException {
                         await showSimpleDialog(
                           context,
-                          "Invalid Email or Password"
+                          "Invalid Password."
                         );
                         return;
                       }
