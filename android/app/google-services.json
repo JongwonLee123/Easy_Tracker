@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "913499345576",
+    "project_id": "easy-tracker-database-c2a18",
+    "storage_bucket": "easy-tracker-database-c2a18.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:913499345576:android:1b3c77143c57f236a4289d",
+        "android_client_info": {
+          "package_name": "com.avg_dev.easy_tracker"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "913499345576-68faqo138un14m2kjtff9o8uk9sqi3qd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB0Yo7GjPEqWJdnkfcKK1P6g0V_15he7Rg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "913499345576-68faqo138un14m2kjtff9o8uk9sqi3qd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

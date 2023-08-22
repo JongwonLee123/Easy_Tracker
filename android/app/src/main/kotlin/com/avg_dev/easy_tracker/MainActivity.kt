@@ -1,4 +1,4 @@
-package com.example.test_app
+package com.avg_dev.easy_tracker
 
 import io.flutter.embedding.android.FlutterActivity
 
